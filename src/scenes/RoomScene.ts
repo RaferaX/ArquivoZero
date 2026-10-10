@@ -5,6 +5,7 @@ import { CLUES } from '../data/clues';
 import { gameState } from '../state/gameState';
 import { addRoomAmbience } from '../effects/RoomAmbience';
 import { audio } from '../audio';
+import { VIEW, fitCamera } from '../visual/theme';
 
 const GAVETA_CODE = '1991';
 const COFRE_CODE = '081187';
@@ -13,6 +14,7 @@ const TAPE_TEXT =
   '(chiado) "Helena. A data do bilhete é mentira. Use a verdadeira, sem barras: dia, mês e ano, dois dígitos cada. O resto está atrás de tudo o que você prendeu com alfinetes."';
 
 export class RoomScene extends Phaser.Scene {
+  private gaveta!: ReturnType<typeof createClueObject>;
   private keypad!: Keypad;
   private door!: ReturnType<typeof createClueObject>;
   private changing = false;
@@ -21,11 +23,27 @@ export class RoomScene extends Phaser.Scene {
     super('RoomScene');
   }
 
+  preload() {
+    // SVGs rasterizados em 2x para ficarem nítidos em telas grandes
+    this.load.svg('pasta', '/svg/pasta.svg', { scale: 2 });
+    this.load.svg('sala', '/svg/sala.svg', { scale: 2 });
+    this.load.svg('mesa', '/svg/mesa.svg', { scale: 2 });
+    this.load.svg('prateleira', '/svg/prateleira.svg', { scale: 2 });
+    this.load.svg('bilhete', '/svg/bilhete.svg', { scale: 2 });
+    this.load.svg('foto', '/svg/foto.svg', { scale: 2 });
+    this.load.svg('cachimbo', '/svg/cachimbo.svg', { scale: 2 });
+    this.load.svg('gaveta', '/svg/gaveta.svg', { scale: 2 });
+    this.load.svg('gaveta-aberta', '/svg/gaveta-aberta.svg', { scale: 2 });
+    this.load.svg('porta', '/svg/porta.svg', { scale: 2 });
+    this.load.svg('gravador', '/svg/gravador.svg', { scale: 2 });
+    this.load.svg('calendario', '/svg/calendario.svg', { scale: 2 });
+  }
+
   create() {
     audio.playAmbient('/audio/rain-dark.wav', 2500, 0.4);
-    const { width, height } = this.scale;
+    const { w: width, h: height } = VIEW;
     this.changing = false;
-
+    fitCamera(this);
     // A interface (mensagens e diário) roda em uma cena separada
     if (!this.scene.isActive('UIScene')) this.scene.launch('UIScene');
 
@@ -58,13 +76,9 @@ export class RoomScene extends Phaser.Scene {
   // ---------- cenário ----------
 
   private buildBackground(width: number, height: number) {
-    this.add.rectangle(width / 2, height / 2, width, height, 0x14141c); // chão
-    this.add.rectangle(width / 2, 120, width, 240, 0x1d1d2b); // parede
-    this.add.rectangle(width / 2, 242, width, 4, 0x0e0e14); // rodapé
-    this.add
-      .rectangle(300, 360, 270, 120, 0x3a2a20)
-      .setStrokeStyle(2, 0x241912); // mesa
-    this.add.rectangle(640, 408, 200, 14, 0x2a2018); // prateleira
+    this.add.image(width / 2, height / 2, 'sala').setDisplaySize(width, height); // parede, rodapé e chão
+    this.add.image(300, 375, 'mesa').setDisplaySize(330, 170); // mesa
+    this.add.image(640, 436, 'prateleira').setDisplaySize(240, 90); // bancada
   }
 
   private buildObjects() {
@@ -82,6 +96,7 @@ export class RoomScene extends Phaser.Scene {
     createClueObject(this, {
       id: 'calendario', x: 330, y: 115, w: 90, h: 100, color: 0x3a3a2a,
       label: 'Calendário', fontSize: 12,
+      sprite: 'calendario',
       hover: 'Outubro de 1994.',
       onUse: () =>
         this.inspect(
@@ -116,6 +131,7 @@ export class RoomScene extends Phaser.Scene {
     createClueObject(this, {
       id: 'pasta', x: 235, y: 335, w: 70, h: 50, color: 0x4a4a52,
       label: 'Pasta\n000', fontSize: 12,
+      sprite: 'pasta',
       hover: 'Pasta 000. Não consta em nenhum índice.',
       onUse: () =>
         this.inspect(
@@ -127,6 +143,7 @@ export class RoomScene extends Phaser.Scene {
     createClueObject(this, {
       id: 'bilhete', x: 320, y: 335, w: 58, h: 40, color: 0x6a6450,
       label: 'Bilhete', fontSize: 11,
+      sprite: 'bilhete',
       hover: 'A letra dele. Inclinada para a esquerda.',
       onUse: () => this.useBilhete(),
     });
@@ -134,6 +151,7 @@ export class RoomScene extends Phaser.Scene {
     createClueObject(this, {
       id: 'foto', x: 392, y: 330, w: 44, h: 54, color: 0x3a3a48,
       label: 'Foto', fontSize: 11,
+      sprite: 'foto',
       hover: 'Uma foto minha com o Otávio.',
       onUse: () =>
         this.inspect(
@@ -146,6 +164,7 @@ export class RoomScene extends Phaser.Scene {
     createClueObject(this, {
       id: 'cachimbo', x: 200, y: 392, w: 56, h: 22, color: 0x4a3626,
       label: 'Cachimbo', fontSize: 10,
+      sprite: 'cachimbo',
       hover: 'O cachimbo do Otávio.',
       onUse: () =>
         this.inspect(
@@ -154,9 +173,11 @@ export class RoomScene extends Phaser.Scene {
         ),
     });
 
-    createClueObject(this, {
+    // a gaveta é guardada em this.gaveta para trocar a imagem quando abrir
+    this.gaveta = createClueObject(this, {
       id: 'gaveta', x: 300, y: 396, w: 130, h: 28, color: 0x2e2018,
       label: 'Gaveta', fontSize: 12, done: () => gameState.hasFlag('gavetaAberta'),
+      sprite: gameState.hasFlag('gavetaAberta') ? 'gaveta-aberta' : 'gaveta',
       hover: () =>
         gameState.hasFlag('gavetaAberta') ? 'Minha gaveta. Vazia.' : 'Minha gaveta. Trancada.',
       onUse: () => this.useGaveta(),
@@ -166,6 +187,7 @@ export class RoomScene extends Phaser.Scene {
     createClueObject(this, {
       id: 'gravador', x: 640, y: 378, w: 120, h: 56, color: 0x3a2030,
       label: 'Gravador', done: () => gameState.hasFlag('fitaOuvida'),
+      sprite: 'gravador',
       hover: 'Um gravador do DRA.',
       onUse: () => this.useGravador(),
     });
@@ -174,6 +196,7 @@ export class RoomScene extends Phaser.Scene {
     this.door = createClueObject(this, {
       id: 'porta', x: 840, y: 140, w: 100, h: 170, color: 0x2b1d14,
       label: 'Porta\n[trancada]', fontSize: 13,
+      sprite: 'porta',
       done: () => gameState.hasFlag('portaAberta'),
       hover: () =>
         gameState.hasFlag('portaAberta')
@@ -253,6 +276,7 @@ export class RoomScene extends Phaser.Scene {
       code: GAVETA_CODE,
       onSuccess: () => {
         gameState.setFlag('gavetaAberta');
+        this.gaveta.image?.setTexture('gaveta-aberta'); // troca para a gaveta puxada
         gameState.addItem('lupa');
         gameState.addItem('fita');
         this.refreshUI();

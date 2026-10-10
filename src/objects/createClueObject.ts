@@ -10,6 +10,8 @@ export interface ClueObjectConfig {
   color: number;
   label: string;
   fontSize?: number;
+  /** Chave da textura SVG carregada no preload. Se existir, substitui a cor do retângulo. */
+  sprite?: string;
   /** Texto do tooltip ao passar o mouse (ou função, se mudar conforme o estado). */
   hover?: string | (() => string);
   /** Mostra o nome fixo sobre o objeto. Útil só para depurar. */
@@ -24,8 +26,13 @@ export function createClueObject(scene: Phaser.Scene, cfg: ClueObjectConfig) {
   const { id, x, y, w, h, color, label, fontSize = 14, onUse } = cfg;
   const isDone = cfg.done ?? (() => gameState.hasClue(id));
 
+  // A imagem fica por baixo; o retângulo vem por cima só como área clicável e borda.
+  const image = cfg.sprite
+    ? scene.add.image(x, y, cfg.sprite).setDisplaySize(w, h)
+    : undefined;
+
   const rect = scene.add
-    .rectangle(x, y, w, h, color)
+    .rectangle(x, y, w, h, color, cfg.sprite ? 0 : 1)
     .setInteractive({ useHandCursor: true });
 
   // O texto continua existindo (outros arquivos podem usar o .text retornado),
@@ -75,5 +82,5 @@ export function createClueObject(scene: Phaser.Scene, cfg: ClueObjectConfig) {
     scene.game.events.emit('hover', null); // evita tooltip preso ao trocar de cena
   });
 
-  return { rect, text, refresh };
+  return { rect, text, image, refresh };
 }

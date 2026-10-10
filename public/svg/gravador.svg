@@ -1,0 +1,191 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="100" viewBox="0 0 150 100">
+  <defs>
+    <linearGradient id="recBody" x1="0" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#45413a"/>
+      <stop offset="0.35" stop-color="#292722"/>
+      <stop offset="0.75" stop-color="#1d1b17"/>
+      <stop offset="1" stop-color="#100f0c"/>
+    </linearGradient>
+
+    <linearGradient id="recTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5a5549"/>
+      <stop offset="1" stop-color="#292720"/>
+    </linearGradient>
+
+    <linearGradient id="recCassette" x1="0" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#39372f"/>
+      <stop offset="1" stop-color="#151511"/>
+    </linearGradient>
+
+    <linearGradient id="recMetal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a69a7d"/>
+      <stop offset="0.4" stop-color="#69604c"/>
+      <stop offset="1" stop-color="#29261f"/>
+    </linearGradient>
+
+    <linearGradient id="recButton" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#706858"/>
+      <stop offset="0.45" stop-color="#3a372f"/>
+      <stop offset="1" stop-color="#171612"/>
+    </linearGradient>
+
+    <linearGradient id="recWindow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c0c09"/>
+      <stop offset="1" stop-color="#29261e"/>
+    </linearGradient>
+
+    <filter id="recShadow" x="-25%" y="-30%" width="150%" height="180%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+  </defs>
+
+  <!-- Sombra sobre a prateleira -->
+  <ellipse cx="76" cy="89" rx="61" ry="5"
+    fill="#000" fill-opacity="0.7" filter="url(#recShadow)"/>
+
+  <!-- Corpo principal -->
+  <path d="M16 25Q16 20 22 19L127 17Q134 18 135 24L139 77Q139 82 133 83L20 85Q14 84 14 78Z"
+    fill="#0c0b09" stroke="#090806" stroke-width="2"/>
+
+  <!-- Carcaça -->
+  <path d="M17 25Q17 21 23 21L126 19Q132 20 133 25L137 75Q137 79 132 80L21 82Q17 81 17 77Z"
+    fill="url(#recBody)" stroke="#625b4b" stroke-opacity="0.55" stroke-width="1"/>
+
+  <!-- Borda superior -->
+  <path d="M22 22L126 20Q130 20 132 24"
+    fill="none" stroke="#a39a81" stroke-opacity="0.35" stroke-width="1"/>
+
+  <!-- Painel superior de controles -->
+  <path d="M24 26L127 24L128 38L25 40Z"
+    fill="url(#recTop)" stroke="#171611" stroke-width="1"/>
+
+  <!-- Alto-falante -->
+  <rect x="29" y="28" width="28" height="8" rx="1.5"
+    fill="#14130f" stroke="#77705d" stroke-opacity="0.5" stroke-width="0.8"/>
+
+  <g stroke="#655e4e" stroke-width="0.8" stroke-opacity="0.8">
+    <path d="M32 30H54"/>
+    <path d="M32 32H54"/>
+    <path d="M32 34H54"/>
+  </g>
+
+  <!-- Indicador de gravação -->
+  <circle cx="67" cy="31" r="2.1" fill="#1a100c"
+    stroke="#6b5940" stroke-width="0.7"/>
+  <circle cx="67" cy="31" r="1.2" fill="#8b3526"/>
+
+  <!-- Texto impresso envelhecido -->
+  <g fill="#b5aa8c" fill-opacity="0.8">
+    <rect x="74" y="28" width="25" height="1" rx="0.4"/>
+    <rect x="74" y="31" width="18" height="0.8" rx="0.4"/>
+    <rect x="74" y="34" width="22" height="0.8" rx="0.4"/>
+  </g>
+
+  <!-- Interruptor lateral -->
+  <rect x="105" y="27" width="18" height="8" rx="1.5"
+    fill="#181712" stroke="#716750" stroke-width="0.8"/>
+  <rect x="107" y="29" width="7" height="4" rx="0.7"
+    fill="url(#recMetal)"/>
+  <path d="M109 30V32" stroke="#d0c2a1" stroke-opacity="0.5"/>
+
+  <!-- Janela da fita -->
+  <path d="M30 44L119 42L121 65L31 67Z"
+    fill="#0b0b08" stroke="#77705b" stroke-width="1.2"/>
+
+  <path d="M34 47L115 45L117 62L35 64Z"
+    fill="url(#recWindow)" stroke="#242219" stroke-width="1"/>
+
+  <!-- Cassete visível -->
+  <path d="M42 49L108 47L112 59L44 61Z"
+    fill="url(#recCassette)" stroke="#8b8067" stroke-opacity="0.7" stroke-width="0.8"/>
+
+  <!-- Etiqueta da fita -->
+  <path d="M49 50L101 49L103 54L50 55Z"
+    fill="#8d8064" fill-opacity="0.65"/>
+  <path d="M53 51L76 50.5"
+    stroke="#332b20" stroke-width="1"/>
+  <path d="M53 53L69 52.5"
+    stroke="#332b20" stroke-width="0.8"/>
+
+  <!-- Carretéis da fita -->
+  <circle cx="57" cy="57" r="5"
+    fill="#11110e" stroke="#b1a486" stroke-width="0.9"/>
+  <circle cx="57" cy="57" r="2.7"
+    fill="#57503f" stroke="#171611" stroke-width="0.8"/>
+  <circle cx="57" cy="57" r="1"
+    fill="#171611"/>
+
+  <circle cx="98" cy="56" r="5"
+    fill="#11110e" stroke="#b1a486" stroke-width="0.9"/>
+  <circle cx="98" cy="56" r="2.7"
+    fill="#57503f" stroke="#171611" stroke-width="0.8"/>
+  <circle cx="98" cy="56" r="1"
+    fill="#171611"/>
+
+  <!-- Fita magnética -->
+  <path d="M61 57Q77 61 94 56"
+    fill="none" stroke="#c1ad7f" stroke-opacity="0.6" stroke-width="1"/>
+
+  <!-- Botões físicos inferiores -->
+  <g stroke="#11100c" stroke-width="1">
+    <rect x="29" y="70" width="17" height="8" rx="1.5"
+      fill="url(#recButton)"/>
+    <rect x="48" y="70" width="17" height="8" rx="1.5"
+      fill="url(#recButton)"/>
+    <rect x="67" y="70" width="17" height="8" rx="1.5"
+      fill="url(#recButton)"/>
+    <rect x="86" y="70" width="17" height="8" rx="1.5"
+      fill="url(#recButton)"/>
+    <rect x="105" y="70" width="17" height="8" rx="1.5"
+      fill="url(#recButton)"/>
+  </g>
+
+  <!-- Símbolos dos botões -->
+  <g fill="#b6a98a" fill-opacity="0.8">
+    <path d="M35 72L35 76L39 74Z"/>
+    <path d="M53 72H60V76H53Z"/>
+    <path d="M72 72L76 74L72 76Z"/>
+    <path d="M91 72L95 74L91 76Z"/>
+    <path d="M110 72L114 74L110 76Z"/>
+  </g>
+
+  <!-- Parafusos gastos -->
+  <g fill="url(#recMetal)" stroke="#16140f" stroke-width="0.6">
+    <circle cx="23" cy="26" r="2"/>
+    <circle cx="128" cy="25" r="2"/>
+    <circle cx="23" cy="77" r="2"/>
+    <circle cx="131" cy="76" r="2"/>
+  </g>
+
+  <g stroke="#211b12" stroke-width="0.7">
+    <path d="M21.8 26H24.2"/>
+    <path d="M126.8 25H129.2"/>
+    <path d="M21.8 77H24.2"/>
+    <path d="M129.8 76H132.2"/>
+  </g>
+
+  <!-- Desgaste e riscos na carcaça -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M20 42L24 41"
+      stroke="#b6a17a" stroke-opacity="0.35" stroke-width="0.8"/>
+    <path d="M124 39L130 38"
+      stroke="#c1aa7d" stroke-opacity="0.25" stroke-width="0.8"/>
+    <path d="M25 64L28 63"
+      stroke="#c1aa7d" stroke-opacity="0.3" stroke-width="0.8"/>
+    <path d="M124 67L130 66"
+      stroke="#c1aa7d" stroke-opacity="0.24" stroke-width="0.8"/>
+    <path d="M45 80L61 79"
+      stroke="#a89a7b" stroke-opacity="0.15" stroke-width="0.8"/>
+  </g>
+
+  <!-- Borda inferior e profundidade -->
+  <path d="M21 82L132 80"
+    stroke="#070605" stroke-width="2"/>
+  <path d="M25 81L128 79"
+    stroke="#8b7b5d" stroke-opacity="0.22" stroke-width="0.8"/>
+
+  <!-- Pequena entrada para fone -->
+  <circle cx="127" cy="45" r="2"
+    fill="#090806" stroke="#716750" stroke-width="0.7"/>
+</svg>

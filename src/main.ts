@@ -1,4 +1,5 @@
 import './style.css';
 import { initMenu } from './menu';
+import { loadFonts } from './visual/fonts';
 
-initMenu();
+loadFonts().then(initMenu);

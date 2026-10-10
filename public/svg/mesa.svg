@@ -1,0 +1,197 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="330" height="170" viewBox="0 0 330 170">
+  <defs>
+    <linearGradient id="deskTop" x1="0" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#75543a"/>
+      <stop offset="0.35" stop-color="#60442f"/>
+      <stop offset="0.72" stop-color="#493322"/>
+      <stop offset="1" stop-color="#342319"/>
+    </linearGradient>
+
+    <linearGradient id="deskFront" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#503825"/>
+      <stop offset="0.25" stop-color="#422d1e"/>
+      <stop offset="1" stop-color="#261a12"/>
+    </linearGradient>
+
+    <linearGradient id="deskLeg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#382519"/>
+      <stop offset="0.28" stop-color="#493222"/>
+      <stop offset="0.55" stop-color="#2b1d13"/>
+      <stop offset="1" stop-color="#1b120c"/>
+    </linearGradient>
+
+    <linearGradient id="deskInset" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#100b07" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#080604" stop-opacity="0.4"/>
+    </linearGradient>
+
+    <linearGradient id="deskEdge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8b6745"/>
+      <stop offset="0.4" stop-color="#503722"/>
+      <stop offset="1" stop-color="#20140d"/>
+    </linearGradient>
+
+    <linearGradient id="deskMetal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#88704a"/>
+      <stop offset="0.45" stop-color="#4b3b28"/>
+      <stop offset="1" stop-color="#241c13"/>
+    </linearGradient>
+
+    <filter id="deskShadow" x="-20%" y="-100%" width="140%" height="300%">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+  </defs>
+
+  <!-- Sombra projetada no chão -->
+  <ellipse cx="165" cy="153" rx="143" ry="9"
+    fill="#000" fill-opacity="0.72" filter="url(#deskShadow)"/>
+
+  <!-- Pernas traseiras -->
+  <path d="M48 116H60V151L56 154H48Z" fill="#21160e"/>
+  <path d="M270 116H282V151L278 154H270Z" fill="#21160e"/>
+
+  <!-- Pernas dianteiras -->
+  <path d="M38 119H51V153L47 156H38Z" fill="url(#deskLeg)"/>
+  <path d="M279 119H292V153L288 156H279Z" fill="url(#deskLeg)"/>
+
+  <!-- Marcas de luz nas pernas -->
+  <path d="M41 123V148" stroke="#9b7550"
+    stroke-opacity="0.22" stroke-width="1.2"/>
+  <path d="M282 123V148" stroke="#9b7550"
+    stroke-opacity="0.18" stroke-width="1.2"/>
+
+  <!-- Pés gastos -->
+  <path d="M38 151L47 151L47 156L38 156Z" fill="#17100b"/>
+  <path d="M279 151L288 151L288 156L279 156Z" fill="#17100b"/>
+  <path d="M39 152H45" stroke="#796044" stroke-opacity="0.35"/>
+  <path d="M280 152H286" stroke="#796044" stroke-opacity="0.3"/>
+
+  <!-- Corpo frontal da mesa -->
+  <path d="M30 88H300V125Q300 130 295 130H35Q30 130 30 125Z"
+    fill="url(#deskFront)"/>
+
+  <!-- Moldura frontal superior -->
+  <path d="M33 89H297" stroke="#a17a51"
+    stroke-opacity="0.3" stroke-width="1"/>
+
+  <!-- Molduras discretas da madeira -->
+  <path d="M37 93H89M241 93H293"
+    stroke="#21160f" stroke-opacity="0.55" stroke-width="1.2"/>
+  <path d="M37 95H89M241 95H293"
+    stroke="#94704a" stroke-opacity="0.16" stroke-width="0.8"/>
+
+  <!-- Espaço escuro para a gaveta interativa -->
+  <rect x="96" y="91" width="138" height="32" rx="2"
+    fill="url(#deskInset)"/>
+  <path d="M99 94H231" stroke="#080604"
+    stroke-opacity="0.75" stroke-width="1.5"/>
+  <path d="M97 120H233" stroke="#9a7047"
+    stroke-opacity="0.12" stroke-width="1"/>
+
+  <!-- Pequenas marcas de uso na frente -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M45 103L64 102L72 104"
+      stroke="#b18a5c" stroke-opacity="0.16" stroke-width="1"/>
+    <path d="M55 113L82 112"
+      stroke="#140d08" stroke-opacity="0.5" stroke-width="1.2"/>
+    <path d="M248 105L269 106L279 104"
+      stroke="#b18a5c" stroke-opacity="0.13" stroke-width="1"/>
+    <path d="M258 116L284 115"
+      stroke="#140d08" stroke-opacity="0.48" stroke-width="1.1"/>
+    <path d="M42 122L52 121"
+      stroke="#a17a51" stroke-opacity="0.18"/>
+    <path d="M279 124L291 123"
+      stroke="#a17a51" stroke-opacity="0.15"/>
+  </g>
+
+  <!-- Tampo grosso de madeira -->
+  <rect x="30" y="10" width="270" height="78" rx="3"
+    fill="url(#deskTop)"/>
+
+  <!-- Veios naturais da madeira -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M36 23Q76 20 112 24T190 23T294 22"
+      stroke="#bd9360" stroke-opacity="0.18" stroke-width="1.3"/>
+    <path d="M36 29Q88 32 137 28T222 30T294 28"
+      stroke="#21150d" stroke-opacity="0.4" stroke-width="1"/>
+    <path d="M36 39Q82 35 126 40T211 38T294 41"
+      stroke="#25180f" stroke-opacity="0.38" stroke-width="1.3"/>
+    <path d="M36 46Q90 49 151 45T237 47T294 45"
+      stroke="#bd9360" stroke-opacity="0.11" stroke-width="1"/>
+    <path d="M36 55Q82 51 124 56T206 54T294 57"
+      stroke="#21150d" stroke-opacity="0.43" stroke-width="1.2"/>
+    <path d="M36 63Q96 66 146 62T233 64T294 62"
+      stroke="#c29a67" stroke-opacity="0.13" stroke-width="0.9"/>
+    <path d="M36 72Q92 69 145 73T235 71T294 74"
+      stroke="#1d120b" stroke-opacity="0.48" stroke-width="1.2"/>
+    <path d="M36 80Q106 77 164 81T260 79T294 80"
+      stroke="#b18a5a" stroke-opacity="0.12" stroke-width="1"/>
+  </g>
+
+  <!-- Nós e imperfeições da madeira -->
+  <g fill="none">
+    <ellipse cx="82" cy="42" rx="5" ry="2"
+      stroke="#26180e" stroke-opacity="0.45" stroke-width="1"/>
+    <path d="M77 42Q82 39 87 42Q82 45 77 42Z"
+      stroke="#a27a4d" stroke-opacity="0.25" stroke-width="0.8"/>
+    <path d="M211 63Q216 60 222 63"
+      stroke="#20140c" stroke-opacity="0.55" stroke-width="1.4"/>
+    <path d="M215 64L219 66"
+      stroke="#b18a5a" stroke-opacity="0.22" stroke-width="0.8"/>
+    <path d="M132 19L136 22L134 25"
+      stroke="#24170e" stroke-opacity="0.4" stroke-width="1"/>
+    <path d="M269 49L265 52L269 55"
+      stroke="#1d120b" stroke-opacity="0.38" stroke-width="1"/>
+  </g>
+
+  <!-- Riscos superficiais -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M52 34L62 32M57 35L65 34"
+      stroke="#d0aa77" stroke-opacity="0.18" stroke-width="0.8"/>
+    <path d="M166 30L174 29"
+      stroke="#d0aa77" stroke-opacity="0.14" stroke-width="0.8"/>
+    <path d="M244 37L251 35L255 36"
+      stroke="#1d120b" stroke-opacity="0.5" stroke-width="1"/>
+    <path d="M104 59L112 58"
+      stroke="#d0aa77" stroke-opacity="0.16" stroke-width="0.8"/>
+    <path d="M178 74L187 72"
+      stroke="#1d120b" stroke-opacity="0.4" stroke-width="1"/>
+  </g>
+
+  <!-- Borda frontal do tampo -->
+  <rect x="30" y="84" width="270" height="4"
+    fill="url(#deskEdge)"/>
+  <path d="M33 84.5H297"
+    stroke="#c09a6c" stroke-opacity="0.35" stroke-width="0.8"/>
+  <path d="M32 87H298"
+    stroke="#130c07" stroke-opacity="0.6" stroke-width="1"/>
+
+  <!-- Cantos gastos -->
+  <path d="M31 12L34 11M31 12V17"
+    stroke="#c29a6b" stroke-opacity="0.42" stroke-width="1"
+    stroke-linecap="round"/>
+  <path d="M296 12L299 15"
+    stroke="#c29a6b" stroke-opacity="0.24" stroke-width="1"
+    stroke-linecap="round"/>
+  <path d="M31 80L33 83"
+    stroke="#d0a575" stroke-opacity="0.22" stroke-width="1"/>
+
+  <!-- Luz ambiente fraca sobre o tampo -->
+  <path d="M35 11H295"
+    stroke="#e0bd8b" stroke-opacity="0.25"
+    stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M31 17V77"
+    stroke="#e0bd8b" stroke-opacity="0.09"
+    stroke-width="1" stroke-linecap="round"/>
+
+  <!-- Pequenos detalhes antigos de metal nas laterais -->
+  <g fill="url(#deskMetal)" stroke="#17110b" stroke-width="0.7">
+    <rect x="34" y="97" width="3" height="8" rx="0.8"/>
+    <rect x="293" y="97" width="3" height="8" rx="0.8"/>
+  </g>
+  <g fill="#c0a071" fill-opacity="0.45">
+    <circle cx="35.5" cy="99" r="0.6"/>
+    <circle cx="294.5" cy="99" r="0.6"/>
+  </g>
+</svg>

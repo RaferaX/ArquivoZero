@@ -1,0 +1,139 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="90" viewBox="0 0 240 90">
+  <defs>
+    <!-- Madeira envelhecida do tampo -->
+    <linearGradient id="shelfPlank" x1="0" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#705039"/>
+      <stop offset="0.32" stop-color="#5b402b"/>
+      <stop offset="0.7" stop-color="#493222"/>
+      <stop offset="1" stop-color="#352318"/>
+    </linearGradient>
+
+    <!-- Frente da prateleira -->
+    <linearGradient id="shelfApron" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#503825"/>
+      <stop offset="0.35" stop-color="#382619"/>
+      <stop offset="1" stop-color="#21160e"/>
+    </linearGradient>
+
+    <!-- Pernas e suportes -->
+    <linearGradient id="shelfLeg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#21160e"/>
+      <stop offset="0.3" stop-color="#493222"/>
+      <stop offset="0.65" stop-color="#302014"/>
+      <stop offset="1" stop-color="#191009"/>
+    </linearGradient>
+
+    <linearGradient id="shelfEdge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#94704b"/>
+      <stop offset="0.35" stop-color="#5a3e28"/>
+      <stop offset="1" stop-color="#281a10"/>
+    </linearGradient>
+
+    <linearGradient id="shelfMetal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8b7148"/>
+      <stop offset="0.5" stop-color="#4d3a25"/>
+      <stop offset="1" stop-color="#241a10"/>
+    </linearGradient>
+
+    <filter id="shelfShadow" x="-20%" y="-200%" width="140%" height="500%">
+      <feGaussianBlur stdDeviation="4.5"/>
+    </filter>
+  </defs>
+
+  <!-- Sombra projetada -->
+  <ellipse cx="120" cy="81" rx="105" ry="5.5"
+    fill="#000" fill-opacity="0.7" filter="url(#shelfShadow)"/>
+
+  <!-- Suportes verticais -->
+  <path d="M34 24H45V78L42 80H34Z" fill="url(#shelfLeg)"/>
+  <path d="M195 24H206V78L203 80H195Z" fill="url(#shelfLeg)"/>
+
+  <!-- Marcas de luz nos suportes -->
+  <path d="M36 28V74"
+    stroke="#a17a50" stroke-opacity="0.22" stroke-width="1"/>
+  <path d="M197 28V74"
+    stroke="#a17a50" stroke-opacity="0.16" stroke-width="1"/>
+
+  <!-- Travessa de sustentação -->
+  <path d="M30 24H210V31H30Z" fill="url(#shelfApron)"/>
+  <path d="M32 25H208"
+    stroke="#a17b4e" stroke-opacity="0.24" stroke-width="0.8"/>
+  <path d="M31 30H209"
+    stroke="#120b06" stroke-opacity="0.7" stroke-width="1"/>
+
+  <!-- Tampo principal -->
+  <rect x="20" y="10" width="200" height="14" rx="1.8"
+    fill="url(#shelfPlank)"/>
+
+  <!-- Veios da madeira -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M24 13Q62 11 91 14T151 13T216 13"
+      stroke="#c29a68" stroke-opacity="0.2" stroke-width="0.8"/>
+    <path d="M23 16Q57 18 89 16T151 17T216 16"
+      stroke="#24170e" stroke-opacity="0.55" stroke-width="1"/>
+    <path d="M24 20Q66 18 105 20T164 19T216 20"
+      stroke="#24170e" stroke-opacity="0.4" stroke-width="0.8"/>
+    <path d="M27 22Q75 21 115 22T190 22"
+      stroke="#b58b5b" stroke-opacity="0.14" stroke-width="0.7"/>
+  </g>
+
+  <!-- Nós e imperfeições -->
+  <g fill="none" stroke-width="0.8">
+    <ellipse cx="69" cy="16" rx="3.5" ry="1.2"
+      stroke="#24170e" stroke-opacity="0.65"/>
+    <path d="M66 16Q69 14.5 72 16"
+      stroke="#bd9360" stroke-opacity="0.28"/>
+    <path d="M151 19L155 17L159 18"
+      stroke="#1d120b" stroke-opacity="0.6"/>
+    <path d="M184 13L181 15L184 16"
+      stroke="#1d120b" stroke-opacity="0.55"/>
+  </g>
+
+  <!-- Pequenos riscos e desgaste -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M42 12L49 12.5"
+      stroke="#d0a878" stroke-opacity="0.3" stroke-width="0.7"/>
+    <path d="M105 18L111 17"
+      stroke="#d0a878" stroke-opacity="0.2" stroke-width="0.7"/>
+    <path d="M174 21L181 20"
+      stroke="#d0a878" stroke-opacity="0.18" stroke-width="0.7"/>
+    <path d="M202 15L207 14"
+      stroke="#1b110a" stroke-opacity="0.55" stroke-width="0.8"/>
+  </g>
+
+  <!-- Borda superior gasta -->
+  <path d="M23 10.8H216"
+    stroke="#d1ad7d" stroke-opacity="0.32"
+    stroke-width="1.1" stroke-linecap="round"/>
+
+  <!-- Sombra sob o tampo -->
+  <rect x="20" y="22" width="200" height="2.5"
+    fill="#100a06" fill-opacity="0.75"/>
+  <path d="M23 23H217"
+    stroke="#b18a5c" stroke-opacity="0.13" stroke-width="0.6"/>
+
+  <!-- Detalhes metálicos antigos nos suportes -->
+  <g fill="url(#shelfMetal)" stroke="#1a120b" stroke-width="0.6">
+    <rect x="35" y="29" width="8" height="3" rx="0.5"/>
+    <rect x="196" y="29" width="8" height="3" rx="0.5"/>
+  </g>
+
+  <!-- Cabeças dos parafusos -->
+  <g fill="#b89a68" fill-opacity="0.65">
+    <circle cx="39" cy="30.5" r="0.8"/>
+    <circle cx="200" cy="30.5" r="0.8"/>
+  </g>
+  <g stroke="#21170e" stroke-width="0.5">
+    <path d="M37.8 30.5H40.2"/>
+    <path d="M198.8 30.5H201.2"/>
+  </g>
+
+  <!-- Desgaste nos pés dos suportes -->
+  <path d="M35 77H42"
+    stroke="#a17a50" stroke-opacity="0.22" stroke-width="0.8"/>
+  <path d="M196 77H203"
+    stroke="#a17a50" stroke-opacity="0.18" stroke-width="0.8"/>
+  <path d="M34 79L42 79M195 79L203 79"
+    stroke="#120b06" stroke-opacity="0.65" stroke-width="1"/>
+</svg>

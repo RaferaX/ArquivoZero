@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="88" height="108" viewBox="0 0 88 108">
+  <defs>
+    <linearGradient id="pic" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3f4658"/>
+      <stop offset="1" stop-color="#1c202c"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f0ece0"/>
+      <stop offset="1" stop-color="#cfc9b8"/>
+    </linearGradient>
+    <linearGradient id="gloss" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.16"/>
+      <stop offset="0.5" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.6"/>
+    </filter>
+    <filter id="blur1" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.6"/>
+    </filter>
+    <clipPath id="clip"><rect x="16" y="14" width="56" height="62"/></clipPath>
+  </defs>
+  <g transform="rotate(3 44 54)">
+    <rect x="12" y="12" width="68" height="88" rx="2" fill="#000" fill-opacity="0.55" filter="url(#soft)"/>
+    <rect x="10" y="8" width="68" height="88" rx="2" fill="url(#card)"/>
+    <rect x="16" y="14" width="56" height="62" fill="url(#pic)"/>
+    <g clip-path="url(#clip)">
+      <!-- Helena, com rosto -->
+      <path d="M20 76Q20 57 36 55Q52 57 52 76Z" fill="#555c72"/>
+      <circle cx="36" cy="43" r="7.5" fill="#a3a7b8"/>
+      <path d="M28.5 41Q29 33 36 33Q43 33 43.5 41Q40 37 36 37Q32 37 28.5 41Z" fill="#2b2f3d"/>
+      <!-- Otávio, sem rosto: só o cachimbo -->
+      <path d="M42 76Q44 56 58 54Q72 56 72 76Z" fill="#2d3241"/>
+      <circle cx="58" cy="41" r="8" fill="#3a3f50" filter="url(#blur1)"/>
+      <path d="M62 46L67.5 48.2" stroke="#cdbd9d" stroke-width="1.7" stroke-linecap="round"/>
+      <circle cx="69" cy="49" r="2.4" fill="#7a5636"/>
+    </g>
+    <rect x="16" y="14" width="56" height="62" fill="url(#gloss)"/>
+    <path d="M13 8.8H75" stroke="#fff" stroke-opacity="0.6" stroke-width="1" stroke-linecap="round"/>
+  </g>
+</svg>

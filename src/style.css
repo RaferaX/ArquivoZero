@@ -1,8 +1,22 @@
+:root {
+  --bg: #07080c;
+  --text: #e8e4da;
+  --dim: #9a98a8;
+  --edge: rgba(255, 255, 255, 0.1);
+  --brand: #b3262e;
+  --accent: #d9b25f;
+  --font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-story: 'Lora', Georgia, 'Times New Roman', serif;
+}
+
 html, body {
   margin: 0;
   height: 100%;
   background: #000;
   overflow: hidden;
+  color: var(--text);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
 }
 
 #game {
@@ -16,6 +30,32 @@ html, body {
 .hidden { display: none !important; }
 .menu-panel[hidden], .btn[hidden], #splash-msg[hidden] { display: none; }
 
+/* ---------- BOTÕES ---------- */
+
+.btn {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  border: 1px solid var(--edge);
+  border-radius: 12px;
+  padding: 0.9rem 1.2rem;
+  font: 500 0.95rem/1 var(--font-ui);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background: rgba(179, 38, 46, 0.14);
+  border-color: rgba(179, 38, 46, 0.7);
+  color: #fff;
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.btn.small { padding: 0.65rem 1rem; font-size: 0.85rem; }
+
 /* ---------- SPLASH / CARREGANDO ---------- */
 
 #splash {
@@ -24,43 +64,50 @@ html, body {
   z-index: 10;
   display: grid;
   place-content: center;
-  gap: 1.2rem;
+  gap: 1.1rem;
   text-align: center;
-  background: #000;
-  color: #cfc9bd;
-  font-family: 'Courier New', monospace;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
+  background: radial-gradient(ellipse at center, #0d0e14 0%, #000 75%);
+  color: var(--text);
+  font-family: var(--font-ui);
   transition: opacity 1s;
 }
 
 #splash.fade { opacity: 0; pointer-events: none; }
 
-.splash-title { font-size: 1.6rem; margin: 0; }
+.splash-title {
+  margin: 0;
+  font: 600 1.5rem/1 var(--font-story);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
 
 .bar {
   width: min(320px, 70vw);
-  height: 2px;
+  height: 3px;
   margin: 0 auto;
-  background: rgba(207, 201, 189, 0.15);
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
 }
 
 #bar-fill {
   width: 0%;
   height: 100%;
-  background: #b3262e;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #7a1a20, var(--brand));
   transition: width 0.3s;
 }
 
 #splash-pct {
-  font-size: 0.8rem;
   margin: 0;
+  font-size: 0.8rem;
   opacity: 0.7;
+  font-variant-numeric: tabular-nums;
 }
 
 #splash-msg {
-  font-size: 0.75rem;
   margin: 0;
+  font-size: 0.8rem;
   opacity: 0.5;
 }
 
@@ -85,8 +132,8 @@ html, body {
   display: grid;
   place-items: center;
   background: #07070a;
-  color: #cfc9bd;
-  font-family: 'Courier New', monospace;
+  color: var(--text);
+  font-family: var(--font-ui);
   overflow: hidden;
 }
 
@@ -106,28 +153,28 @@ html, body {
 }
 
 .chapter {
-  letter-spacing: 0.4em;
+  margin: 0 0 0.6rem;
   font-size: 0.75rem;
-  opacity: 0.5;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
+  opacity: 0.5;
 }
 
 .title {
   margin: 0.4rem 0;
-  font-size: clamp(2rem, 8vw, 3.4rem);
-  letter-spacing: 0.15em;
-  font-weight: 700;
+  font: 600 clamp(2rem, 8vw, 3.4rem)/1.1 var(--font-story);
+  letter-spacing: 0.16em;
 }
 
 .title span {
-  color: #b3262e;
+  color: var(--brand);
   animation: erase 7s infinite;
 }
 
 .tagline {
-  opacity: 0.55;
-  font-style: italic;
-  margin-bottom: 2rem;
+  margin: 0.6rem 0 2.2rem;
+  font: italic 400 1rem/1.4 var(--font-story);
+  opacity: 0.6;
 }
 
 .menu-panel {
@@ -136,28 +183,11 @@ html, body {
   gap: 0.75rem;
 }
 
-.btn {
-  background: transparent;
-  color: inherit;
-  border: 1px solid rgba(207, 201, 189, 0.25);
-  padding: 0.85rem 1rem;
-  font: inherit;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s;
+.menu-panel h2 {
+  margin: 0 0 0.4rem;
+  font: 600 1.2rem/1.2 var(--font-story);
+  letter-spacing: 0.1em;
 }
-
-.btn:hover,
-.btn:focus-visible {
-  border-color: #b3262e;
-  color: #fff;
-  background: rgba(179, 38, 46, 0.12);
-  outline: none;
-  transform: translateX(4px);
-}
-
-.btn.small { padding: 0.6rem 1rem; font-size: 0.8rem; }
 
 .opt {
   display: grid;
@@ -168,16 +198,20 @@ html, body {
   font-size: 0.85rem;
 }
 
-.opt em { font-style: normal; opacity: 0.6; text-align: right; }
+.opt input[type='range'] { accent-color: var(--accent); width: 100%; }
+.opt em { font-style: normal; opacity: 0.6; text-align: right; font-variant-numeric: tabular-nums; }
 
 .opt select {
   grid-column: 2 / 4;
-  background: #0b0b10;
+  background: rgba(255, 255, 255, 0.05);
   color: inherit;
-  border: 1px solid rgba(207, 201, 189, 0.25);
-  padding: 0.3rem;
+  border: 1px solid var(--edge);
+  border-radius: 8px;
+  padding: 0.45rem 0.6rem;
   font: inherit;
 }
+
+.opt select option { background: #10131b; }
 
 .credits { line-height: 1.8; opacity: 0.7; }
 
@@ -218,8 +252,8 @@ html, body {
   display: grid;
   place-items: center;
   background: #000;
-  color: #cfc9bd;
-  font-family: 'Courier New', monospace;
+  color: var(--text);
+  font-family: var(--font-story);
   cursor: pointer;
   transition: opacity 0.8s;
 }
@@ -229,7 +263,7 @@ html, body {
 #intro-content {
   width: min(640px, 88vw);
   line-height: 1.9;
-  font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+  font-size: clamp(1rem, 1.7vw, 1.2rem);
   transition: opacity 0.7s;
 }
 
@@ -238,6 +272,7 @@ html, body {
 #intro-content p { margin: 0 0 1.1rem; }
 
 #intro-content .head {
+  font: 500 0.78rem/1.6 var(--font-ui);
   letter-spacing: 0.25em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -245,11 +280,11 @@ html, body {
 
 #intro-content .quote {
   padding-left: 1rem;
-  border-left: 2px solid #b3262e;
+  border-left: 2px solid var(--brand);
 }
 
-#intro-content .b { color: #fff; font-weight: 700; }
-#intro-content .i { font-style: italic; color: #e6dfd0; }
+#intro-content .b { color: #fff; font-weight: 600; }
+#intro-content .i { font-style: italic; color: #f0eadb; }
 
 /* a palavra some e volta, como se fosse apagada */
 #intro-content .vanish.go { animation: vanish 5s ease-in-out 1; }
@@ -257,10 +292,10 @@ html, body {
 .intro-title {
   margin: 0;
   text-align: center;
-  font-size: clamp(1.8rem, 6vw, 3rem);
-  letter-spacing: 0.35em;
+  font: 600 clamp(1.8rem, 6vw, 3rem)/1.1 var(--font-story);
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #b3262e;
+  color: var(--brand);
   animation: fadein 2.5s ease-out;
 }
 
@@ -268,8 +303,8 @@ html, body {
   position: absolute;
   bottom: 2rem;
   margin: 0;
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
+  font: 500 0.7rem/1 var(--font-ui);
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   opacity: 0;
   transition: opacity 0.6s;
@@ -322,34 +357,37 @@ html, body {
   top: 0.6rem;
   right: 0.6rem;
   z-index: 25;
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 2.4rem;
+  height: 2.4rem;
   padding: 0;
-  font-size: 0;            /* esconde o texto "CONFIGURAÇÕES" */
-  opacity: 0.55;
-  background: rgba(0, 0, 0, 0.45);
-  color: #cfc9bd;
-  font-family: 'Courier New', monospace;
+  border-radius: 50%;
+  font-size: 0; /* esconde o texto "Configurações" */
+  opacity: 0.6;
+  background: rgba(8, 9, 13, 0.55);
+  color: var(--text);
 }
 
 #gear::before {
   content: '⚙';
-  font-size: 1.2rem;
+  font-size: 1.25rem;
+  line-height: 1;
 }
 
 #gear:hover {
   opacity: 1;
-  transform: none;         /* o .btn:hover empurra o botão 4px, aqui não precisa */
+  transform: none;
 }
+
 #pause {
   position: fixed;
   inset: 0;
   z-index: 30;
   display: grid;
   place-items: center;
-  background: rgba(0, 0, 0, 0.82);
-  color: #cfc9bd;
-  font-family: 'Courier New', monospace;
+  background: rgba(4, 5, 8, 0.72);
+  backdrop-filter: blur(8px);
+  color: var(--text);
+  font-family: var(--font-ui);
 }
 
 .pause-box {
@@ -357,13 +395,18 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
+  padding: 1.8rem;
   text-align: center;
+  border-radius: 20px;
+  background: rgba(16, 18, 26, 0.85);
+  border: 1px solid var(--edge);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
 .pause-box h2 {
-  margin: 0 0 0.5rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
+  margin: 0 0 0.4rem;
+  font: 600 1.3rem/1.2 var(--font-story);
+  letter-spacing: 0.12em;
 }
 
 /* abertura pausada: congela as animações */

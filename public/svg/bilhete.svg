@@ -1,0 +1,106 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="116" height="80" viewBox="0 0 116 80">
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#cbb88d"/>
+      <stop offset="0.48" stop-color="#b9a276"/>
+      <stop offset="1" stop-color="#8f7955"/>
+    </linearGradient>
+
+    <linearGradient id="fold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#65533a" stop-opacity=".28"/>
+      <stop offset=".5" stop-color="#e2d0a8" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#403522" stop-opacity=".3"/>
+    </linearGradient>
+
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feGaussianBlur stdDeviation="2.4"/>
+    </filter>
+
+    <pattern id="grain" width="13" height="11" patternUnits="userSpaceOnUse">
+      <path d="M1 3l4-.7 M8 8l3-.5"
+        stroke="#59472e" stroke-opacity=".22" stroke-width=".45"/>
+      <circle cx="6" cy="5" r=".5" fill="#493923" fill-opacity=".22"/>
+    </pattern>
+
+    <clipPath id="paperClip">
+      <path d="M14 10 L101 10 L102 15 L100 19
+        L102 38 L100 42 L102 66 L97 68
+        L19 68 L14 65 L15 45 L13 40 L15 20 Z"/>
+    </clipPath>
+  </defs>
+
+  <g transform="rotate(-4 58 40)">
+    <!-- Sombra sobre a mesa -->
+    <path d="M16 14 L103 14 L105 70 L17 72 Z"
+      fill="#000" fill-opacity=".65" filter="url(#shadow)"/>
+
+    <!-- Papel envelhecido -->
+    <path d="M14 10 L101 10 L102 15 L100 19
+      L102 38 L100 42 L102 66 L97 68
+      L19 68 L14 65 L15 45 L13 40 L15 20 Z"
+      fill="url(#paper)" stroke="#756344" stroke-width=".8"/>
+
+    <g clip-path="url(#paperClip)">
+      <!-- Textura antiga -->
+      <rect x="13" y="9" width="90" height="60" fill="url(#grain)"/>
+
+      <!-- Manchas de envelhecimento -->
+      <g fill="#705331" fill-opacity=".23">
+        <ellipse cx="23" cy="19" rx="5" ry="2.5"/>
+        <ellipse cx="88" cy="28" rx="3.5" ry="5"/>
+        <ellipse cx="26" cy="57" rx="4" ry="3"/>
+        <ellipse cx="93" cy="57" rx="5" ry="2"/>
+        <circle cx="77" cy="15" r="1.5"/>
+        <circle cx="39" cy="64" r="1"/>
+      </g>
+
+      <!-- Dobras do papel -->
+      <path d="M14 38.5 L102 39"
+        stroke="#665239" stroke-opacity=".4" stroke-width="1.5"/>
+      <path d="M14 40 L102 40.5"
+        stroke="#ead8af" stroke-opacity=".48" stroke-width="1"/>
+      <path d="M56 10 L56.5 68"
+        stroke="#6e5838" stroke-opacity=".17" stroke-width=".8"/>
+
+      <!-- Escrita manual irregular -->
+      <g fill="none" stroke="#302f2a"
+        stroke-opacity=".86" stroke-width="1.25"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M23 21 Q28 18 33 20 T43 19
+          Q48 22 54 19 T67 20 T81 18"/>
+        <path d="M23 28 Q29 25 36 27
+          L44 26 Q52 29 60 26 T78 26 T91 25"/>
+        <path d="M23 46 Q30 42 36 45
+          T49 44 Q56 47 64 44 T80 43"/>
+        <path d="M23 53 Q29 50 35 52
+          T47 51 Q53 54 60 51 T71 51"/>
+        <path d="M75 60 Q81 58 86 60"/>
+      </g>
+
+      <!-- Pequena marca de arquivo -->
+      <g fill="#70423a" fill-opacity=".76"
+        font-family="Courier New, monospace" font-weight="bold">
+        <text x="23" y="16" font-size="5.5">A.Z.</text>
+        <text x="75" y="18" font-size="4.2"
+          transform="rotate(-2 75 18)">CONFIDENCIAL</text>
+      </g>
+
+      <!-- Número escrito a lápis -->
+      <text x="88" y="63" text-anchor="middle"
+        font-family="Courier New, monospace"
+        font-size="7.5" font-style="italic"
+        letter-spacing="1.5" fill="#302c24"
+        transform="rotate(-3 88 63)">000</text>
+      <path d="M79 65 L98 64"
+        stroke="#302c24" stroke-width=".7"
+        stroke-opacity=".65"/>
+    </g>
+
+    <!-- Bordas desgastadas -->
+    <path d="M16 11 L98 11 M17 66 L25 67
+      M96 66 L100 64"
+      fill="none" stroke="#e0cfaa"
+      stroke-opacity=".48" stroke-width=".8"/>
+  </g>
+</svg>

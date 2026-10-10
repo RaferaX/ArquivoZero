@@ -1,0 +1,194 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="320" viewBox="0 0 180 320">
+  <defs>
+    <linearGradient id="doorFrame" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#211710"/>
+      <stop offset="0.25" stop-color="#59402b"/>
+      <stop offset="0.55" stop-color="#352519"/>
+      <stop offset="1" stop-color="#17100b"/>
+    </linearGradient>
+
+    <linearGradient id="doorWood" x1="0" y1="0" x2="1" y2="0.15">
+      <stop offset="0" stop-color="#24180f"/>
+      <stop offset="0.18" stop-color="#4a3220"/>
+      <stop offset="0.42" stop-color="#382619"/>
+      <stop offset="0.7" stop-color="#493020"/>
+      <stop offset="1" stop-color="#20150e"/>
+    </linearGradient>
+
+    <linearGradient id="doorPanel" x1="0" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#503724"/>
+      <stop offset="0.45" stop-color="#382619"/>
+      <stop offset="1" stop-color="#21150d"/>
+    </linearGradient>
+
+    <linearGradient id="doorMetal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a38a59"/>
+      <stop offset="0.35" stop-color="#665033"/>
+      <stop offset="0.75" stop-color="#393020"/>
+      <stop offset="1" stop-color="#19150f"/>
+    </linearGradient>
+
+    <linearGradient id="doorHandle" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c1a16a"/>
+      <stop offset="0.45" stop-color="#76603b"/>
+      <stop offset="1" stop-color="#302518"/>
+    </linearGradient>
+
+    <linearGradient id="doorShadow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.75"/>
+    </linearGradient>
+
+    <filter id="doorDropShadow" x="-30%" y="-10%" width="160%" height="125%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+  </defs>
+
+  <!-- Sombra atrás da porta -->
+  <rect x="15" y="10" width="151" height="303"
+    fill="#000" fill-opacity="0.65" filter="url(#doorDropShadow)"/>
+
+  <!-- Vão escuro -->
+  <rect x="17" y="7" width="146" height="307" fill="#0b0806"/>
+
+  <!-- Batente externo -->
+  <path d="M10 314V8Q10 4 14 4H166Q170 4 170 8V314H155V20H25V314Z"
+    fill="url(#doorFrame)"/>
+
+  <!-- Brilho gasto do batente -->
+  <path d="M14 7H165"
+    stroke="#a07a4d" stroke-opacity="0.4" stroke-width="1.2"/>
+  <path d="M15 12V306"
+    stroke="#c19a66" stroke-opacity="0.22" stroke-width="1.2"/>
+  <path d="M165 12V307"
+    stroke="#0b0806" stroke-opacity="0.85" stroke-width="2"/>
+
+  <!-- Folha da porta -->
+  <rect x="25" y="20" width="130" height="286"
+    fill="url(#doorWood)"/>
+
+  <!-- Veios verticais -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M32 24Q35 70 32 111T34 190T32 300"
+      stroke="#b18a5b" stroke-opacity="0.16" stroke-width="1.2"/>
+    <path d="M42 24Q46 80 43 132T45 215T42 302"
+      stroke="#120b07" stroke-opacity="0.65" stroke-width="1.6"/>
+    <path d="M53 24Q50 80 54 128T52 225T55 301"
+      stroke="#a47a4d" stroke-opacity="0.15" stroke-width="0.9"/>
+    <path d="M67 24Q70 68 66 116T69 205T66 301"
+      stroke="#140d08" stroke-opacity="0.6" stroke-width="1.4"/>
+    <path d="M78 24Q75 80 79 141T77 224T80 301"
+      stroke="#b18a5b" stroke-opacity="0.13" stroke-width="1"/>
+    <path d="M91 24Q95 83 91 130T94 216T91 301"
+      stroke="#120b07" stroke-opacity="0.65" stroke-width="1.4"/>
+    <path d="M105 24Q101 72 105 119T103 211T106 301"
+      stroke="#a47a4d" stroke-opacity="0.13" stroke-width="1"/>
+    <path d="M117 24Q121 82 117 137T120 222T117 301"
+      stroke="#130c07" stroke-opacity="0.65" stroke-width="1.5"/>
+    <path d="M131 24Q128 70 132 128T130 217T133 301"
+      stroke="#b18a5b" stroke-opacity="0.12" stroke-width="0.9"/>
+    <path d="M145 24Q141 84 145 143T143 224T146 301"
+      stroke="#100a06" stroke-opacity="0.7" stroke-width="1.5"/>
+  </g>
+
+  <!-- Painel superior em relevo -->
+  <rect x="38" y="35" width="104" height="99" rx="1"
+    fill="#21160e" stroke="#17100a" stroke-width="2"/>
+  <rect x="42" y="39" width="96" height="91"
+    fill="url(#doorPanel)" stroke="#745338" stroke-opacity="0.65" stroke-width="1.3"/>
+  <rect x="47" y="44" width="86" height="81"
+    fill="none" stroke="#17100b" stroke-opacity="0.7" stroke-width="1.5"/>
+  <path d="M49 47H130M49 47V121"
+    stroke="#b28a59" stroke-opacity="0.2" stroke-width="1"/>
+
+  <!-- Painel inferior -->
+  <rect x="38" y="149" width="104" height="132" rx="1"
+    fill="#21160e" stroke="#17100a" stroke-width="2"/>
+  <rect x="42" y="153" width="96" height="124"
+    fill="url(#doorPanel)" stroke="#745338" stroke-opacity="0.55" stroke-width="1.3"/>
+  <rect x="47" y="158" width="86" height="114"
+    fill="none" stroke="#17100b" stroke-opacity="0.75" stroke-width="1.5"/>
+  <path d="M49 161H130M49 161V267"
+    stroke="#b28a59" stroke-opacity="0.17" stroke-width="1"/>
+
+  <!-- Riscos e marcas de envelhecimento -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M57 58L63 64L61 71"
+      stroke="#170f09" stroke-opacity="0.8" stroke-width="1.4"/>
+    <path d="M60 64L64 66"
+      stroke="#b18a5b" stroke-opacity="0.25" stroke-width="0.8"/>
+    <path d="M112 79L117 76L121 78"
+      stroke="#160e08" stroke-opacity="0.8" stroke-width="1.2"/>
+    <path d="M49 103L55 101"
+      stroke="#c09a6b" stroke-opacity="0.22" stroke-width="0.8"/>
+    <path d="M84 174L91 180L88 187"
+      stroke="#170f09" stroke-opacity="0.8" stroke-width="1.3"/>
+    <path d="M88 180L94 181"
+      stroke="#b18a5b" stroke-opacity="0.2" stroke-width="0.8"/>
+    <path d="M108 209L114 206"
+      stroke="#c09a6b" stroke-opacity="0.2" stroke-width="0.8"/>
+    <path d="M52 244L59 242L63 244"
+      stroke="#160e08" stroke-opacity="0.8" stroke-width="1.2"/>
+    <path d="M123 254L128 251"
+      stroke="#c09a6b" stroke-opacity="0.2" stroke-width="0.8"/>
+  </g>
+
+  <!-- Sombra lateral para dar profundidade -->
+  <rect x="137" y="21" width="17" height="284"
+    fill="url(#doorShadow)"/>
+
+  <!-- Dobradiças antigas -->
+  <g fill="url(#doorMetal)" stroke="#21170e" stroke-width="1">
+    <rect x="143" y="52" width="9" height="31" rx="1.5"/>
+    <rect x="143" y="177" width="9" height="31" rx="1.5"/>
+    <rect x="143" y="264" width="9" height="27" rx="1.5"/>
+  </g>
+
+  <g stroke="#b79a69" stroke-opacity="0.5" stroke-width="0.8">
+    <path d="M145 57H150M145 78H150"/>
+    <path d="M145 182H150M145 203H150"/>
+    <path d="M145 269H150M145 287H150"/>
+  </g>
+
+  <g fill="#1b130b">
+    <circle cx="147.5" cy="59" r="1.1"/>
+    <circle cx="147.5" cy="76" r="1.1"/>
+    <circle cx="147.5" cy="184" r="1.1"/>
+    <circle cx="147.5" cy="201" r="1.1"/>
+    <circle cx="147.5" cy="271" r="1.1"/>
+    <circle cx="147.5" cy="285" r="1.1"/>
+  </g>
+
+  <!-- Espelho da fechadura -->
+  <rect x="119" y="163" width="12" height="22" rx="2"
+    fill="url(#doorMetal)" stroke="#21170e" stroke-width="1"/>
+  <path d="M125 168V176"
+    stroke="#c4a675" stroke-opacity="0.4" stroke-width="0.8"/>
+
+  <!-- Buraco da fechadura -->
+  <path d="M125 171
+    A2.5 2.5 0 1 0 125 176
+    L123.5 181H126.5L125 176"
+    fill="#090705"/>
+
+  <!-- Maçaneta de latão envelhecido -->
+  <circle cx="111" cy="176" r="8"
+    fill="#21170e" fill-opacity="0.8"/>
+  <circle cx="110" cy="175" r="6.5"
+    fill="url(#doorHandle)" stroke="#1b130c" stroke-width="1.2"/>
+  <circle cx="108.5" cy="173.5" r="2"
+    fill="#d0b17a" fill-opacity="0.4"/>
+  <path d="M104 178Q110 182 115 177"
+    fill="none" stroke="#251a10" stroke-opacity="0.7" stroke-width="1"/>
+
+  <!-- Desgaste na base -->
+  <path d="M27 298L43 297M61 302L76 301M104 299L119 300"
+    stroke="#b18a5b" stroke-opacity="0.2" stroke-width="1"/>
+  <path d="M25 305H155"
+    stroke="#090604" stroke-opacity="0.85" stroke-width="2"/>
+
+  <!-- Luz fraca na borda -->
+  <path d="M27 23V298"
+    stroke="#d0a878" stroke-opacity="0.12" stroke-width="1"/>
+</svg>
