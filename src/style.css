@@ -1,0 +1,373 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+}
+
+#game {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #0b0b10;
+}
+
+.hidden { display: none !important; }
+.menu-panel[hidden], .btn[hidden], #splash-msg[hidden] { display: none; }
+
+/* ---------- SPLASH / CARREGANDO ---------- */
+
+#splash {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-content: center;
+  gap: 1.2rem;
+  text-align: center;
+  background: #000;
+  color: #cfc9bd;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  transition: opacity 1s;
+}
+
+#splash.fade { opacity: 0; pointer-events: none; }
+
+.splash-title { font-size: 1.6rem; margin: 0; }
+
+.bar {
+  width: min(320px, 70vw);
+  height: 2px;
+  margin: 0 auto;
+  background: rgba(207, 201, 189, 0.15);
+}
+
+#bar-fill {
+  width: 0%;
+  height: 100%;
+  background: #b3262e;
+  transition: width 0.3s;
+}
+
+#splash-pct {
+  font-size: 0.8rem;
+  margin: 0;
+  opacity: 0.7;
+}
+
+#splash-msg {
+  font-size: 0.75rem;
+  margin: 0;
+  opacity: 0.5;
+}
+
+#splash-btn {
+  justify-self: center;
+  animation: blink 2.5s infinite;
+}
+
+#splash-btn:hover,
+#splash-btn:focus-visible {
+  animation: none;
+  opacity: 1;
+}
+
+.blink { animation: blink 2.5s infinite; }
+
+/* ---------- MENU ---------- */
+
+#menu {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #07070a;
+  color: #cfc9bd;
+  font-family: 'Courier New', monospace;
+  overflow: hidden;
+}
+
+.menu-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, rgba(120, 20, 30, 0.18), transparent 60%),
+    radial-gradient(ellipse at center, transparent 40%, #000 100%);
+  animation: breathe 6s ease-in-out infinite;
+}
+
+.menu-box {
+  position: relative;
+  width: min(420px, 90vw);
+  text-align: center;
+}
+
+.chapter {
+  letter-spacing: 0.4em;
+  font-size: 0.75rem;
+  opacity: 0.5;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0.4rem 0;
+  font-size: clamp(2rem, 8vw, 3.4rem);
+  letter-spacing: 0.15em;
+  font-weight: 700;
+}
+
+.title span {
+  color: #b3262e;
+  animation: erase 7s infinite;
+}
+
+.tagline {
+  opacity: 0.55;
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+.menu-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn {
+  background: transparent;
+  color: inherit;
+  border: 1px solid rgba(207, 201, 189, 0.25);
+  padding: 0.85rem 1rem;
+  font: inherit;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  border-color: #b3262e;
+  color: #fff;
+  background: rgba(179, 38, 46, 0.12);
+  outline: none;
+  transform: translateX(4px);
+}
+
+.btn.small { padding: 0.6rem 1rem; font-size: 0.8rem; }
+
+.opt {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 3rem;
+  align-items: center;
+  gap: 0.6rem;
+  text-align: left;
+  font-size: 0.85rem;
+}
+
+.opt em { font-style: normal; opacity: 0.6; text-align: right; }
+
+.opt select {
+  grid-column: 2 / 4;
+  background: #0b0b10;
+  color: inherit;
+  border: 1px solid rgba(207, 201, 189, 0.25);
+  padding: 0.3rem;
+  font: inherit;
+}
+
+.credits { line-height: 1.8; opacity: 0.7; }
+
+.menu-footer {
+  position: absolute;
+  bottom: 1rem;
+  font-size: 0.7rem;
+  opacity: 0.35;
+}
+
+/* ---------- ANIMAÇÕES ---------- */
+
+@keyframes blink {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.15; }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* o "ZERO" some e volta, como se estivesse sendo apagado */
+@keyframes erase {
+  0%, 88%, 100% { opacity: 1; }
+  90% { opacity: 0.1; }
+  92% { opacity: 0.9; }
+  94% { opacity: 0.2; }
+  96% { opacity: 1; }
+}
+
+/* ---------- ABERTURA ---------- */
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  background: #000;
+  color: #cfc9bd;
+  font-family: 'Courier New', monospace;
+  cursor: pointer;
+  transition: opacity 0.8s;
+}
+
+#intro.leave { opacity: 0; pointer-events: none; }
+
+#intro-content {
+  width: min(640px, 88vw);
+  line-height: 1.9;
+  font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+  transition: opacity 0.7s;
+}
+
+#intro-content.out { opacity: 0; }
+
+#intro-content p { margin: 0 0 1.1rem; }
+
+#intro-content .head {
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+#intro-content .quote {
+  padding-left: 1rem;
+  border-left: 2px solid #b3262e;
+}
+
+#intro-content .b { color: #fff; font-weight: 700; }
+#intro-content .i { font-style: italic; color: #e6dfd0; }
+
+/* a palavra some e volta, como se fosse apagada */
+#intro-content .vanish.go { animation: vanish 5s ease-in-out 1; }
+
+.intro-title {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(1.8rem, 6vw, 3rem);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #b3262e;
+  animation: fadein 2.5s ease-out;
+}
+
+#intro-hint {
+  position: absolute;
+  bottom: 2rem;
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+
+#intro-hint.show { opacity: 0.5; animation: blink 2.5s infinite; }
+
+#intro-skip {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 2;
+  opacity: 0.6;
+}
+
+/* luz piscando (telas 5 a 7) */
+#intro-fx {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#intro.flicker #intro-fx { animation: flick 4s infinite; }
+
+@keyframes vanish {
+  0%, 15% { opacity: 1; }
+  30%, 60% { opacity: 0; }
+  80% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes flick {
+  0%, 18%, 22%, 60%, 64%, 100% { opacity: 0; }
+  20% { opacity: 0.55; }
+  62% { opacity: 0.35; }
+  63% { opacity: 0.7; }
+}
+
+/* ---------- PAUSA / CONFIG DENTRO DO JOGO ---------- */
+
+#gear {
+  position: fixed;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 25;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  font-size: 0;            /* esconde o texto "CONFIGURAÇÕES" */
+  opacity: 0.55;
+  background: rgba(0, 0, 0, 0.45);
+  color: #cfc9bd;
+  font-family: 'Courier New', monospace;
+}
+
+#gear::before {
+  content: '⚙';
+  font-size: 1.2rem;
+}
+
+#gear:hover {
+  opacity: 1;
+  transform: none;         /* o .btn:hover empurra o botão 4px, aqui não precisa */
+}
+#pause {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.82);
+  color: #cfc9bd;
+  font-family: 'Courier New', monospace;
+}
+
+.pause-box {
+  width: min(420px, 90vw);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  text-align: center;
+}
+
+.pause-box h2 {
+  margin: 0 0 0.5rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+/* abertura pausada: congela as animações */
+#intro.paused *,
+#intro.paused #intro-fx {
+  animation-play-state: paused !important;
+}

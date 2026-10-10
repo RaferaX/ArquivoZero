@@ -1,0 +1,142 @@
+```html
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arquivo Zero</title>
+  </head>
+
+  <body>
+    <div id="splash">
+      <p class="splash-title">Arquivo Zero</p>
+
+      <div class="bar">
+        <div id="bar-fill"></div>
+      </div>
+
+      <p id="splash-pct">0%</p>
+      <p id="splash-msg">Carregando...</p>
+
+      <button id="splash-btn" class="btn" hidden>
+        Clique aqui para entrar
+      </button>
+    </div>
+
+    <div id="menu">
+      <div class="menu-bg"></div>
+
+      <main class="menu-box">
+        <p class="chapter">Versão demonstrativa</p>
+
+        <h1 class="title">ARQUIVO <span>ZERO</span></h1>
+
+        <p class="tagline">Alguns registros não deveriam existir.</p>
+
+        <section class="menu-panel" data-panel="main">
+          <button id="btn-continue" class="btn" hidden>
+            Continuar
+          </button>
+
+          <button id="btn-new" class="btn">Novo Jogo</button>
+          <button id="btn-settings" class="btn">Configurações</button>
+          <button id="btn-credits" class="btn">Créditos</button>
+        </section>
+
+        <section class="menu-panel" data-panel="settings" hidden>
+          <h2>Configurações</h2>
+
+          <label class="opt">
+            <span>Volume geral</span>
+            <input id="opt-master" type="range" min="0" max="100" />
+            <em id="opt-master-val"></em>
+          </label>
+
+          <label class="opt">
+            <span>Música</span>
+            <input id="opt-music" type="range" min="0" max="100" />
+            <em id="opt-music-val"></em>
+          </label>
+
+          <label class="opt">
+            <span>Efeitos</span>
+            <input id="opt-sfx" type="range" min="0" max="100" />
+            <em id="opt-sfx-val"></em>
+          </label>
+
+          <label class="opt">
+            <span>Velocidade do texto</span>
+
+            <select id="opt-text-speed">
+              <option value="lenta">Lenta</option>
+              <option value="normal">Normal</option>
+              <option value="rapida">Rápida</option>
+            </select>
+          </label>
+
+          <button id="btn-fullscreen" class="btn small">
+            Tela cheia
+          </button>
+
+          <button class="btn small" data-back>Voltar</button>
+        </section>
+
+        <section class="menu-panel" data-panel="credits" hidden>
+          <h2>Créditos</h2>
+
+          <p class="credits">
+            Criado por você.<br />
+            Feito com Phaser 3 + TypeScript.
+          </p>
+
+          <button class="btn small" data-back>Voltar</button>
+        </section>
+      </main>
+
+      <footer class="menu-footer">v0.1 · protótipo</footer>
+    </div>
+
+    <div id="game" class="hidden"></div>
+
+    <button id="gear" class="btn small hidden" aria-label="Configurações">
+      ⚙ Configurações
+    </button>
+
+    <div id="pause" class="hidden">
+      <div class="pause-box">
+        <h2>Jogo pausado</h2>
+
+        <label class="opt">
+          <span>Volume geral</span>
+          <input id="pause-master" type="range" min="0" max="100" />
+          <em id="pause-master-val"></em>
+        </label>
+        <label class="opt">
+          <span>Música</span>
+          <input id="pause-music" type="range" min="0" max="100" />
+          <em id="pause-music-val"></em>
+        </label>
+        <label class="opt">
+          <span>Efeitos</span>
+          <input id="pause-sfx" type="range" min="0" max="100" />
+          <em id="pause-sfx-val"></em>
+        </label>
+        <label class="opt">
+          <span>Velocidade do texto</span>
+          <select id="pause-text-speed">
+            <option value="lenta">Lenta</option>
+            <option value="normal">Normal</option>
+            <option value="rapida">Rápida</option>
+          </select>
+        </label>
+
+        <button id="pause-fullscreen" class="btn small">Tela cheia</button>
+        <button id="pause-resume" class="btn">Continuar</button>
+        <button id="pause-menu" class="btn small">Voltar ao menu</button>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+```
