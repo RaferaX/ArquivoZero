@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="340" height="300" viewBox="0 0 340 300">
+  <defs>
+    <linearGradient id="jnFrame" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3f4a5e"/>
+      <stop offset="0.5" stop-color="#252d3c"/>
+      <stop offset="1" stop-color="#11151e"/>
+    </linearGradient>
+    <linearGradient id="jnWood" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7a5636"/>
+      <stop offset="0.5" stop-color="#4a301e"/>
+      <stop offset="1" stop-color="#24170f"/>
+    </linearGradient>
+    <linearGradient id="jnSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a101c"/>
+      <stop offset="0.55" stop-color="#14213a"/>
+      <stop offset="1" stop-color="#22324f"/>
+    </linearGradient>
+    <linearGradient id="jnFog" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6f8fb8" stop-opacity="0"/>
+      <stop offset="1" stop-color="#6f8fb8" stop-opacity="0.28"/>
+    </linearGradient>
+    <linearGradient id="jnInner" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#000" stop-opacity="0.55"/>
+      <stop offset="0.1" stop-color="#000" stop-opacity="0"/>
+      <stop offset="0.9" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.25"/>
+    </linearGradient>
+    <linearGradient id="jnMetal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b5a078"/>
+      <stop offset="0.5" stop-color="#75603d"/>
+      <stop offset="1" stop-color="#3a2d1c"/>
+    </linearGradient>
+    <radialGradient id="jnDrop" cx="0.35" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#e6f0ff" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#8fb0d6" stop-opacity="0.25"/>
+    </radialGradient>
+    <clipPath id="jnGlass">
+      <rect x="20" y="20" width="300" height="260"/>
+    </clipPath>
+    <filter id="jnShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <filter id="jnBlur" x="-40%" y="-80%" width="180%" height="260%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+  </defs>
+
+  <!-- Sombra na parede -->
+  <rect x="12" y="10" width="322" height="286" rx="3"
+    fill="#000" fill-opacity="0.55" filter="url(#jnShadow)"/>
+
+  <!-- Moldura -->
+  <rect x="6" y="6" width="328" height="282" rx="3"
+    fill="url(#jnFrame)" stroke="#090c12" stroke-width="2"/>
+  <path d="M9 9H331M9 9V285" fill="none" stroke="#7a8aa6" stroke-opacity="0.35" stroke-width="1.4"/>
+  <path d="M331 10V285" fill="none" stroke="#06080c" stroke-opacity="0.8" stroke-width="1.5"/>
+  <!-- tinta descascada -->
+  <path d="M40 8L54 8L49 14Z" fill="#8c97a8" fill-opacity="0.45"/>
+  <path d="M280 8L290 8L286 12Z" fill="#8c97a8" fill-opacity="0.4"/>
+  <path d="M8 120L8 132L13 127Z" fill="#8c97a8" fill-opacity="0.4"/>
+  <path d="M331 200L331 214L326 208Z" fill="#8c97a8" fill-opacity="0.4"/>
+
+  <!-- Vidro: o que se vê lá fora -->
+  <g clip-path="url(#jnGlass)">
+    <rect x="20" y="20" width="300" height="260" fill="url(#jnSky)"/>
+
+    <!-- nuvens baixas -->
+    <ellipse cx="90" cy="62" rx="90" ry="18" fill="#32476b" fill-opacity="0.35" filter="url(#jnBlur)"/>
+    <ellipse cx="240" cy="96" rx="80" ry="14" fill="#2a3c5c" fill-opacity="0.3" filter="url(#jnBlur)"/>
+    <ellipse cx="160" cy="132" rx="110" ry="12" fill="#2a3c5c" fill-opacity="0.22" filter="url(#jnBlur)"/>
+
+    <!-- prédios ao fundo (todos apagados) -->
+    <g fill="#111c30" stroke="#1a2a45" stroke-width="1">
+      <rect x="20" y="214" width="56" height="66"/>
+      <rect x="70" y="200" width="44" height="80"/>
+      <rect x="140" y="206" width="60" height="74"/>
+      <rect x="190" y="196" width="50" height="84"/>
+      <rect x="236" y="210" width="70" height="70"/>
+    </g>
+    <g fill="#0a0f19" stroke="#16233a" stroke-width="1">
+      <rect x="20" y="196" width="38" height="84"/>
+      <rect x="52" y="160" width="30" height="120"/>
+      <rect x="80" y="210" width="46" height="70"/>
+      <rect x="124" y="176" width="34" height="104"/>
+      <rect x="156" y="216" width="52" height="64"/>
+      <rect x="206" y="148" width="36" height="132"/>
+      <rect x="240" y="192" width="44" height="88"/>
+      <rect x="280" y="170" width="40" height="110"/>
+    </g>
+    <path d="M224 148V132M224 140H230" stroke="#16233a" stroke-width="1.5"/>
+
+    <!-- neblina rente ao chão -->
+    <rect x="20" y="190" width="300" height="90" fill="url(#jnFog)"/>
+
+    <!-- reflexos no vidro -->
+    <path d="M40 20L120 20L60 280L20 280Z" fill="#fff" fill-opacity="0.045"/>
+    <path d="M170 20L200 20L140 280L110 280Z" fill="#fff" fill-opacity="0.03"/>
+
+    <!-- gotas paradas no vidro -->
+    <g>
+      <ellipse cx="62" cy="64" rx="1.7" ry="2.6" fill="url(#jnDrop)"/>
+      <ellipse cx="108" cy="104" rx="1.4" ry="2.2" fill="url(#jnDrop)"/>
+      <ellipse cx="146" cy="52" rx="1.6" ry="2.4" fill="url(#jnDrop)"/>
+      <ellipse cx="210" cy="82" rx="1.8" ry="2.8" fill="url(#jnDrop)"/>
+      <ellipse cx="268" cy="58" rx="1.5" ry="2.3" fill="url(#jnDrop)"/>
+      <ellipse cx="294" cy="118" rx="1.7" ry="2.6" fill="url(#jnDrop)"/>
+      <ellipse cx="84" cy="176" rx="1.6" ry="2.5" fill="url(#jnDrop)"/>
+      <ellipse cx="190" cy="168" rx="1.4" ry="2.1" fill="url(#jnDrop)"/>
+      <ellipse cx="250" cy="196" rx="1.8" ry="2.7" fill="url(#jnDrop)"/>
+      <ellipse cx="128" cy="232" rx="1.5" ry="2.3" fill="url(#jnDrop)"/>
+      <path d="M62 67V84M210 85V104M250 199V216M84 179V190"
+        stroke="#8fb0d6" stroke-opacity="0.18" stroke-width="0.9" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- Sombra interna do vidro -->
+  <rect x="20" y="20" width="300" height="260" fill="url(#jnInner)"/>
+
+  <!-- Travessas -->
+  <rect x="167" y="20" width="6" height="260" fill="url(#jnFrame)" stroke="#090c12" stroke-width="1"/>
+  <rect x="20" y="145" width="300" height="6" fill="url(#jnFrame)" stroke="#090c12" stroke-width="1"/>
+  <path d="M168 21V279M21 146H319" stroke="#7a8aa6" stroke-opacity="0.35" stroke-width="0.8"/>
+
+  <!-- Trinco -->
+  <rect x="162" y="158" width="16" height="22" rx="2" fill="url(#jnMetal)" stroke="#0d0a07" stroke-width="1"/>
+  <path d="M170 180V196" stroke="#2c2417" stroke-width="3.6" stroke-linecap="round"/>
+  <path d="M164 160H176" stroke="#fff" stroke-opacity="0.3" stroke-width="0.8"/>
+
+  <!-- Peitoril -->
+  <rect x="0" y="284" width="340" height="16" rx="1.5" fill="url(#jnWood)" stroke="#1b120b" stroke-width="2"/>
+  <path d="M3 287H337" stroke="#a27a4e" stroke-opacity="0.5" stroke-width="1.2"/>
+  <ellipse cx="96" cy="290" rx="24" ry="2.6" fill="#3b6285" fill-opacity="0.35"/>
+  <ellipse cx="250" cy="292" rx="14" ry="1.8" fill="#3b6285" fill-opacity="0.3"/>
+</svg>

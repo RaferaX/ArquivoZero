@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="200" viewBox="0 0 120 200">
+  <defs>
+    <linearGradient id="crCard" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e4e1d8"/>
+      <stop offset="0.55" stop-color="#c4c1b7"/>
+      <stop offset="1" stop-color="#9e9b91"/>
+    </linearGradient>
+    <linearGradient id="crHeader" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2d3342"/>
+      <stop offset="1" stop-color="#151922"/>
+    </linearGradient>
+    <linearGradient id="crPhoto" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#707887"/>
+      <stop offset="1" stop-color="#3c4350"/>
+    </linearGradient>
+    <linearGradient id="crMetal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b5a078"/>
+      <stop offset="0.5" stop-color="#75603d"/>
+      <stop offset="1" stop-color="#3a2d1c"/>
+    </linearGradient>
+    <radialGradient id="crNail" cx="0.35" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#d4c8a8"/>
+      <stop offset="0.5" stop-color="#7a6a48"/>
+      <stop offset="1" stop-color="#2c2415"/>
+    </radialGradient>
+    <filter id="crShadow" x="-30%" y="-20%" width="160%" height="150%">
+      <feGaussianBlur stdDeviation="3.5"/>
+    </filter>
+    <filter id="crSoft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.2"/>
+    </filter>
+  </defs>
+
+  <!-- Prego -->
+  <circle cx="62" cy="13" r="4.4" fill="#000" fill-opacity="0.5" filter="url(#crSoft)"/>
+  <circle cx="60" cy="10" r="4.2" fill="url(#crNail)" stroke="#1b1712" stroke-width="0.8"/>
+  <circle cx="58.8" cy="8.8" r="1.2" fill="#fff" fill-opacity="0.55"/>
+
+  <g transform="rotate(-2.5 60 10)">
+    <!-- Fita -->
+    <path d="M60 10L49 54M60 10L71 54" fill="none" stroke="#000" stroke-opacity="0.35"
+      stroke-width="3.6" stroke-linecap="round" transform="translate(1 1.5)"/>
+    <path d="M60 10L49 54M60 10L71 54" fill="none" stroke="#6e1a20"
+      stroke-width="3.2" stroke-linecap="round"/>
+    <path d="M59 12L48 54M61 12L72 54" fill="none" stroke="#b3262e"
+      stroke-opacity="0.55" stroke-width="0.9" stroke-linecap="round"/>
+
+    <!-- Presilha -->
+    <rect x="48" y="50" width="24" height="14" rx="3" fill="url(#crMetal)" stroke="#1d160c" stroke-width="1"/>
+    <rect x="55" y="53" width="10" height="4" rx="2" fill="#17120b"/>
+    <path d="M50 52H70" stroke="#fff" stroke-opacity="0.3" stroke-width="0.8"/>
+
+    <!-- Sombra do cartão -->
+    <rect x="23" y="68" width="80" height="124" rx="7" fill="#000" fill-opacity="0.55" filter="url(#crShadow)"/>
+
+    <!-- Cartão -->
+    <rect x="20" y="64" width="80" height="124" rx="7" fill="url(#crCard)" stroke="#6b685f" stroke-width="1.2"/>
+    <path d="M24 66H96" stroke="#fff" stroke-opacity="0.55" stroke-width="1"/>
+    <rect x="50" y="68" width="20" height="4" rx="2" fill="#4b4943"/>
+
+    <!-- Faixa do departamento -->
+    <rect x="20" y="76" width="80" height="20" fill="url(#crHeader)"/>
+    <text x="60" y="90" text-anchor="middle" font-family="Georgia, serif"
+      font-size="10" font-weight="bold" letter-spacing="2.5" fill="#d9b25f">DRA</text>
+
+    <!-- Foto (silhueta) -->
+    <rect x="36" y="102" width="48" height="40" rx="2" fill="url(#crPhoto)" stroke="#4b4943" stroke-width="0.8"/>
+    <circle cx="60" cy="118" r="8" fill="#232830"/>
+    <path d="M42 142C42 130 50 127 60 127C70 127 78 130 78 142Z" fill="#232830"/>
+
+    <!-- Dados -->
+    <text x="60" y="154" text-anchor="middle" font-family="Georgia, serif"
+      font-size="7.4" font-weight="bold" fill="#2b2924">H. VASQUES</text>
+    <text x="60" y="162" text-anchor="middle" font-family="Georgia, serif"
+      font-size="4.8" letter-spacing="0.8" fill="#4b4943">PERITA DOCUMENTAL</text>
+    <!-- número do crachá: o jogador percebe que não é o dela -->
+    <text x="60" y="174" text-anchor="middle" font-family="Georgia, serif"
+      font-size="7" font-weight="bold" fill="#8a1f26">N° 0001</text>
+
+    <!-- Código de barras -->
+    <path d="M32 178V184M34.5 178V184M36 178V184M39 178V184M41 178V184M42.5 178V184M45 178V184M48 178V184M49.5 178V184M52 178V184M55 178V184M56.5 178V184M59 178V184M62 178V184M63.5 178V184M66 178V184M69 178V184M70.5 178V184M73 178V184M76 178V184M77.5 178V184M80 178V184M83 178V184M85.5 178V184M88 178V184"
+      stroke="#2b2924" stroke-width="1"/>
+
+    <!-- Brilho e desgaste -->
+    <path d="M20 64L100 64L100 120L20 170Z" fill="#fff" fill-opacity="0.06"/>
+    <path d="M26 150L30 147M88 168L93 166" stroke="#fff" stroke-opacity="0.35" stroke-width="0.7"/>
+  </g>
+</svg>

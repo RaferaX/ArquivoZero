@@ -37,6 +37,9 @@ export class RoomScene extends Phaser.Scene {
     this.load.svg('porta', '/svg/porta.svg', { scale: 2 });
     this.load.svg('gravador', '/svg/gravador.svg', { scale: 2 });
     this.load.svg('calendario', '/svg/calendario.svg', { scale: 2 });
+    this.load.svg('janela', '/svg/janela.svg', { scale: 2 });
+    this.load.svg('quadro', '/svg/quadro.svg', { scale: 2 });
+    this.load.svg('cracha', '/svg/cracha.svg', { scale: 2 });
   }
 
   create() {
@@ -86,6 +89,8 @@ export class RoomScene extends Phaser.Scene {
     createClueObject(this, {
       id: 'janela', x: 130, y: 120, w: 150, h: 130, color: 0x1a2433,
       label: 'Janela', done: () => false,
+      sprite: 'janela',
+      spriteSize: { w: 170, h: 150 }, // inclui moldura e peitoril; o vidro fica em x 55–205, y 55–185
       hover: 'A chuva não para desde o começo da madrugada.',
       onUse: () =>
         this.say(
@@ -97,6 +102,7 @@ export class RoomScene extends Phaser.Scene {
       id: 'calendario', x: 330, y: 115, w: 90, h: 100, color: 0x3a3a2a,
       label: 'Calendário', fontSize: 12,
       sprite: 'calendario',
+      spriteSize: { w: 71, h: 100 }, // mantém a proporção do SVG (150×210)
       hover: 'Outubro de 1994.',
       onUse: () =>
         this.inspect(
@@ -108,6 +114,7 @@ export class RoomScene extends Phaser.Scene {
     createClueObject(this, {
       id: 'quadro', x: 520, y: 130, w: 170, h: 120, color: 0x2a3a3a,
       label: 'Quadro\nde avisos', done: () => gameState.hasFlag('cofreAberto'),
+      sprite: 'quadro',
       hover: () =>
         gameState.hasFlag('cofreAberto')
           ? 'O quadro. O cofre atrás dele está aberto.'
@@ -115,10 +122,13 @@ export class RoomScene extends Phaser.Scene {
       onUse: () => this.useQuadro(),
     });
 
-    // crachá, pendurado ao lado da porta
+    // crachá, pendurado ao lado da porta (clique só no cartão, não na fita)
     createClueObject(this, {
-      id: 'cracha', x: 745, y: 125, w: 30, h: 44, color: 0x9a9aa8,
+      id: 'cracha', x: 745, y: 132, w: 28, h: 40, color: 0x9a9aa8,
       label: 'Crachá', fontSize: 9,
+      sprite: 'cracha',
+      spriteSize: { w: 34, h: 57 },
+      spriteOffset: { x: 0, y: -7 },
       hover: 'Meu crachá.',
       onUse: () =>
         this.inspect(
@@ -193,8 +203,9 @@ export class RoomScene extends Phaser.Scene {
     });
 
     // porta
+    this.add.ellipse(840, 251, 118, 9, 0x000000, 0.35);
     this.door = createClueObject(this, {
-      id: 'porta', x: 840, y: 140, w: 100, h: 170, color: 0x2b1d14,
+      id: 'porta', x: 840, y: 152, w: 118, h: 200, color: 0x2b1d14,
       label: 'Porta\n[trancada]', fontSize: 13,
       sprite: 'porta',
       done: () => gameState.hasFlag('portaAberta'),

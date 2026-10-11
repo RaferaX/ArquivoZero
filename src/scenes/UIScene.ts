@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { gameState } from '../state/gameState';
 import { getSettings } from '../settings';
+import { audio } from '../audio';
 import {
   VIEW,
   COLOR,
@@ -15,6 +16,43 @@ const MSG_DELAY = { lenta: 40, normal: 20, rapida: 8 };
 const MSG = { x: 40, y: 398, w: 880, h: 128 };
 const HEADER_H = 74;
 
+// Teclas de atalho (troque aqui se quiser outras)
+const KEY_INVENTORY = 'I';
+const KEY_DIARY = 'D';
+
+// Sons
+const SFX_ZIP_OPEN = '/audio/zip-open.mp3';
+const SFX_PAGE = '/audio/page-turn.mp3';
+
+// Grade do inventário: 4 colunas x 3 linhas = 12 slots
+const INV = { cols: 4, rows: 3, slot: 84, gap: 14, left: 100, top: 110 };
+
+// Diário: livro aberto (SVG de 820x480) centrado na tela
+const BOOK = {
+  x: 70, y: 32, w: 820, h: 480,        // onde o livro aparece
+  leftX: 130, rightX: 532, colW: 298,  // colunas de texto das duas páginas
+  textTop: 96, textH: 330,             // topo e altura útil do texto
+  numY: 456,                           // linha do número da página
+  flipMs: 170,                         // metade da duração da virada
+};
+const ENTRY_GAP = 18;
+
+// Cores da "tinta" sobre o papel
+const INK = { title: '#2d2218', body: '#44362a', dim: '#7d6a4f', red: '#8a2f33' };
+const TITLE_STYLE = {
+  fontFamily: FONT.story,
+  fontSize: '17px',
+  fontStyle: 'bold',
+  color: INK.title,
+};
+const BODY_STYLE = {
+  fontFamily: FONT.story,
+  fontSize: '15px',
+  fontStyle: 'italic',
+  color: INK.body,
+  lineSpacing: 5,
+};
+
 // Tempos do painel de mensagens (em milissegundos)
 const HIDE = {
   base: 5500,    // quanto tempo fica na tela depois de terminar de digitar
@@ -25,6 +63,16 @@ const HIDE = {
   retry: 1500,   // se o mouse estiver em cima, espera mais um pouco
 };
 
+// Os ícones dos itens são carregados aqui: public/svg/item-<id>.svg
+const ITEM_ICONS = ['lupa', 'fita', 'cartao'];
+
+interface Pill {
+  gfx: Phaser.GameObjects.Graphics;
+  chip: Phaser.GameObjects.Text;
+  text: Phaser.GameObjects.Text;
+  zone: Phaser.GameObjects.Zone;
+}
+
 export class UIScene extends Phaser.Scene {
   private msgPanel!: Phaser.GameObjects.Container;
   private messageText!: Phaser.GameObjects.Text;
@@ -33,14 +81,23 @@ export class UIScene extends Phaser.Scene {
   private fadeTween?: Phaser.Tweens.Tween;
   private typing = false;
 
-  private counterGfx!: Phaser.GameObjects.Graphics;
-  private counterText!: Phaser.GameObjects.Text;
-  private keyChip!: Phaser.GameObjects.Text;
-  private counterZone!: Phaser.GameObjects.Zone;
+  private diaryPill!: Pill;
+  private invPill!: Pill;
 
   private diary!: Phaser.GameObjects.Container;
-  private diaryList!: Phaser.GameObjects.Container;
-  private diaryHeight = 0;
+  private bookContent!: Phaser.GameObjects.Container;
+  private prevBtn!: Phaser.GameObjects.Text;
+  private nextBtn!: Phaser.GameObjects.Text;
+  private diaryPages: number[][] = []; // cada página guarda os índices das anotações
+  private spread = 0;                  // qual par de páginas está aberto
+  private flipping = false;
+
+  private inventory!: Phaser.GameObjects.Container;
+  private invSlots!: Phaser.GameObjects.Container;
+  private invSel!: Phaser.GameObjects.Graphics;
+  private invTitle!: Phaser.GameObjects.Text;
+  private invBody!: Phaser.GameObjects.Text;
+  private selectedSlot = -1;
 
   private tooltip!: Phaser.GameObjects.Container;
   private tipGfx!: Phaser.GameObjects.Graphics;
@@ -55,6 +112,13 @@ export class UIScene extends Phaser.Scene {
     super('UIScene');
   }
 
+  preload() {
+    this.load.svg('diario', '/svg/diario.svg', { scale: 2 });
+    ITEM_ICONS.forEach((id) =>
+      this.load.svg(`item-${id}`, `/svg/item-${id}.svg`, { scale: 2 })
+    );
+  }
+
   create() {
     fitCamera(this);
 
@@ -65,18 +129,21 @@ export class UIScene extends Phaser.Scene {
     }).setAlpha(0.8);
 
     this.createMessagePanel();
-    this.createCounter();
+    this.createPills();
     this.createDiary();
+    this.createInventory();
     this.createTooltip();
 
-    this.input.keyboard?.on('keydown-I', () => this.togglePanel());
+    this.input.keyboard?.on(`keydown-${KEY_INVENTORY}`, () => this.toggleInventory());
+    this.input.keyboard?.on(`keydown-${KEY_DIARY}`, () => this.toggleDiary());
 
-    // M: mostra de novo a última mensagem depois que ela sumiu
-    this.input.keyboard?.on('keydown-M', () => {
-      this.showPanel();
-      this.scheduleHide(HIDE.base);
+    // setas e roda do mouse viram as páginas do diário
+    this.input.keyboard?.on('keydown-LEFT', () => {
+      if (this.diary.visible) this.turnPage(-1);
     });
-
+    this.input.keyboard?.on('keydown-RIGHT', () => {
+      if (this.diary.visible) this.turnPage(1);
+    });
     this.input.on(
       'wheel',
       (
@@ -85,16 +152,22 @@ export class UIScene extends Phaser.Scene {
         _dx: number,
         dy: number
       ) => {
-        if (this.diary.visible) this.scrollList(dy);
+        if (this.diary.visible) this.turnPage(dy > 0 ? 1 : -1);
       }
     );
+
+    // M: mostra de novo a última mensagem depois que ela sumiu
+    this.input.keyboard?.on('keydown-M', () => {
+      this.showPanel();
+      this.scheduleHide(HIDE.base);
+    });
 
     // As salas se comunicam com a interface por eventos
     this.game.events.on('hover', (text: string | null) => this.setTooltip(text));
     this.game.events.on('message', (text: string) => this.showMessage(text));
-    this.game.events.on('inventory-changed', () => this.refreshInventory());
+    this.game.events.on('inventory-changed', () => this.refreshAll());
 
-    this.refreshInventory();
+    this.refreshAll();
     this.showMessage(
       'Madrugada. Estou sozinha no prédio. A pasta continua aberta sobre a mesa.'
     );
@@ -213,64 +286,328 @@ export class UIScene extends Phaser.Scene {
     );
   }
 
-  // ---------- contador do diário ----------
+  // ---------- botões do canto (Diário e Inventário) ----------
 
-  private createCounter() {
-    this.counterGfx = this.add.graphics();
-    this.keyChip = addText(this, 0, 0, 'I', {
+  private createPills() {
+    this.diaryPill = this.createPill(KEY_DIARY, () => this.toggleDiary());
+    this.invPill = this.createPill(KEY_INVENTORY, () => this.toggleInventory());
+  }
+
+  private createPill(key: string, onClick: () => void): Pill {
+    const gfx = this.add.graphics();
+    const chip = addText(this, 0, 0, key, {
       fontFamily: FONT.ui,
       fontSize: '11px',
       fontStyle: '600',
       color: TEXT.dim,
     }).setOrigin(0.5);
-    this.counterText = addText(this, 0, 0, '', {
+    const text = addText(this, 0, 0, '', {
       fontFamily: FONT.ui,
       fontSize: '13px',
       fontStyle: '500',
       color: TEXT.text,
     }).setOrigin(0, 0.5);
-    this.counterZone = this.add
-      .zone(0, 0, 10, 10)
-      .setInteractive({ useHandCursor: true });
-    this.counterZone.on('pointerdown', () => this.togglePanel());
+    const zone = this.add.zone(0, 0, 10, 10).setInteractive({ useHandCursor: true });
+    zone.on('pointerdown', onClick);
+    return { gfx, chip, text, zone };
   }
 
-  private redrawCounter(count: number) {
-    this.counterText.setText(`Diário  ${count}`);
+  /** Desenha o botão com a borda direita em `right` e devolve a borda esquerda. */
+  private drawPill(p: Pill, label: string, right: number): number {
+    p.text.setText(label);
 
     const h = 28;
-    const w = this.counterText.width + 52;
-    const x = VIEW.w - 64 - w;
+    const w = p.text.width + 52;
+    const x = right - w;
     const y = 14;
 
-    this.counterGfx.clear();
-    drawPanel(this.counterGfx, x, y, w, h, { radius: 14, alpha: 0.7, shadow: false });
-    this.counterGfx.fillStyle(0xffffff, 0.08);
-    this.counterGfx.fillRoundedRect(x + 6, y + 5, 18, 18, 5);
+    p.gfx.clear();
+    drawPanel(p.gfx, x, y, w, h, { radius: 14, alpha: 0.7, shadow: false });
+    p.gfx.fillStyle(0xffffff, 0.08);
+    p.gfx.fillRoundedRect(x + 6, y + 5, 18, 18, 5);
 
-    this.keyChip.setPosition(x + 15, y + h / 2);
-    this.counterText.setPosition(x + 32, y + h / 2);
-    this.counterZone.setPosition(x + w / 2, y + h / 2).setSize(w, h);
+    p.chip.setPosition(x + 15, y + h / 2);
+    p.text.setPosition(x + 32, y + h / 2);
+    p.zone.setPosition(x + w / 2, y + h / 2).setSize(w, h);
+    return x;
   }
 
-  // ---------- diário ----------
+  // ---------- diário (livro aberto) ----------
 
   private createDiary() {
+    // fundo escuro: clicar fora do livro fecha o diário
     const bg = this.add
       .rectangle(VIEW.w / 2, VIEW.h / 2, VIEW.w, VIEW.h, COLOR.bg, 0.94)
       .setInteractive();
-    bg.on('pointerdown', () => this.togglePanel());
+    bg.on('pointerdown', () => this.toggleDiary());
 
-    this.diaryList = this.add.container(0, 0);
+    const cx = BOOK.x + BOOK.w / 2;
+    const cy = BOOK.y + BOOK.h / 2;
+    const book = this.add.image(cx, cy, 'diario').setDisplaySize(BOOK.w, BOOK.h);
 
-    // barra do topo: opaca, cobre o texto quando ele rola para cima
+    // impede que clicar nas páginas feche o diário
+    const block = this.add.zone(cx, cy, BOOK.w, BOOK.h).setInteractive();
+
+    // as páginas são redesenhadas aqui a cada mudança ou virada
+    this.bookContent = this.add.container(0, 0);
+
+    const navStyle = {
+      fontFamily: FONT.story,
+      fontSize: '14px',
+      fontStyle: 'italic',
+      color: INK.dim,
+    };
+    this.prevBtn = addText(this, BOOK.leftX, BOOK.numY - 9, '‹ anterior', navStyle)
+      .setInteractive({ useHandCursor: true });
+    this.nextBtn = addText(this, BOOK.rightX + BOOK.colW, BOOK.numY - 9, 'próxima ›', navStyle)
+      .setOrigin(1, 0)
+      .setInteractive({ useHandCursor: true });
+
+    for (const btn of [this.prevBtn, this.nextBtn]) {
+      btn.on('pointerover', () => btn.setColor(INK.title));
+      btn.on('pointerout', () => btn.setColor(INK.dim));
+    }
+    this.prevBtn.on('pointerdown', () => this.turnPage(-1));
+    this.nextBtn.on('pointerdown', () => this.turnPage(1));
+
+    const hint = addText(
+      this,
+      VIEW.w / 2,
+      521,
+      `${KEY_DIARY} ou clique fora para fechar  ·  ← → ou roda do mouse para virar a página`,
+      { fontFamily: FONT.ui, fontSize: '11px', color: TEXT.dim }
+    ).setOrigin(0.5, 0);
+
+    this.diary = this.add.container(0, 0, [
+      bg, book, block, this.bookContent, this.prevBtn, this.nextBtn, hint,
+    ]);
+    this.diary.setVisible(false);
+  }
+
+  private pageCount() {
+    // página 0 = folha de rosto; depois, as páginas de anotações (mínimo 1)
+    return 1 + Math.max(1, this.diaryPages.length);
+  }
+
+  private spreadCount() {
+    return Math.ceil(this.pageCount() / 2);
+  }
+
+  /** Altura que uma anotação ocupa na página (título + texto + espaço). */
+  private entryHeight(title: string, body: string): number {
+    const t = addText(this, -3000, -3000, title, TITLE_STYLE);
+    const b = addText(this, -3000, -3000, body, {
+      ...BODY_STYLE,
+      wordWrap: { width: BOOK.colW },
+    });
+    const h = t.height + 4 + b.height + ENTRY_GAP;
+    t.destroy();
+    b.destroy();
+    return h;
+  }
+
+  /** Distribui as anotações pelas páginas sem cortar nenhuma ao meio. */
+  private buildDiary() {
+    const clues = gameState.getClues();
+    this.diaryPages = [];
+
+    let page: number[] = [];
+    let used = 0;
+    clues.forEach((c, i) => {
+      const h = this.entryHeight(c.title, c.text);
+      if (page.length && used + h > BOOK.textH) {
+        this.diaryPages.push(page);
+        page = [];
+        used = 0;
+      }
+      page.push(i);
+      used += h;
+    });
+    if (page.length) this.diaryPages.push(page);
+
+    this.spread = Math.min(this.spread, this.spreadCount() - 1);
+    this.renderSpread();
+  }
+
+  private renderSpread() {
+    this.bookContent.removeAll(true);
+
+    const left = this.spread * 2;
+    this.drawPage(left, BOOK.leftX);
+    this.drawPage(left + 1, BOOK.rightX);
+
+    this.prevBtn.setVisible(this.spread > 0);
+    this.nextBtn.setVisible(this.spread < this.spreadCount() - 1);
+  }
+
+  private drawPage(p: number, x: number) {
+    if (p >= this.pageCount()) return; // folha em branco no fim do livro
+
+    const cx = x + BOOK.colW / 2;
+    if (p === 0) {
+      this.drawFrontispiece(cx);
+      return;
+    }
+
+    const clues = gameState.getClues();
+    const idxs = this.diaryPages[p - 1] ?? [];
+    let y = BOOK.textTop;
+
+    if (!idxs.length) {
+      this.bookContent.add(
+        addText(this, x, y, 'Nenhuma anotação ainda.', {
+          fontFamily: FONT.story,
+          fontSize: '15px',
+          fontStyle: 'italic',
+          color: INK.dim,
+        })
+      );
+    }
+
+    idxs.forEach((i, k) => {
+      const c = clues[i];
+
+      const title = addText(this, x, y, c.title, TITLE_STYLE);
+      y += title.height + 4;
+      const body = addText(this, x, y, c.text, {
+        ...BODY_STYLE,
+        wordWrap: { width: BOOK.colW },
+      });
+      y += body.height;
+      this.bookContent.add([title, body]);
+
+      // traço sutil entre uma anotação e outra
+      if (k < idxs.length - 1) {
+        const sep = this.add.graphics();
+        sep.lineStyle(1, 0x7d6a4f, 0.28);
+        sep.lineBetween(x, y + ENTRY_GAP / 2, x + BOOK.colW, y + ENTRY_GAP / 2);
+        this.bookContent.add(sep);
+      }
+      y += ENTRY_GAP;
+    });
+
+    // número da página
+    this.bookContent.add(
+      addText(this, cx, BOOK.numY, String(p), {
+        fontFamily: FONT.story,
+        fontSize: '13px',
+        color: INK.dim,
+      }).setOrigin(0.5)
+    );
+  }
+
+  /** Folha de rosto do diário. */
+  private drawFrontispiece(cx: number) {
+    const line = (y: number, text: string, size: number, color: string, style = '') => {
+      const t = addText(this, cx, y, text, {
+        fontFamily: FONT.story,
+        fontSize: `${size}px`,
+        fontStyle: style,
+        color,
+      }).setOrigin(0.5);
+      this.bookContent.add(t);
+    };
+
+    line(135, 'D I Á R I O', 13, INK.dim);
+    line(175, 'Helena Vasques', 28, INK.title, 'bold');
+    line(210, 'Perita documental', 16, INK.body, 'italic');
+    line(242, 'Departamento de Registros Anômalos', 13, INK.dim);
+
+    // carimbo inclinado
+    const stamp = this.add.container(cx, 310);
+    const box = this.add.graphics();
+    box.lineStyle(3, 0x8a2f33, 1);
+    box.strokeRoundedRect(-92, -21, 184, 42, 4);
+    const label = addText(this, 0, 0, 'CONFIDENCIAL', {
+      fontFamily: FONT.ui,
+      fontSize: '20px',
+      fontStyle: 'bold',
+      color: INK.red,
+    }).setOrigin(0.5);
+    stamp.add([box, label]);
+    stamp.setAngle(-8).setAlpha(0.72);
+    this.bookContent.add(stamp);
+
+    line(372, 'Se encontrado, devolver ao DRA.', 13, INK.dim, 'italic');
+  }
+
+  /** Vira a página: uma folha se fecha no meio e abre do outro lado. */
+  private turnPage(dir: 1 | -1) {
+    const target = this.spread + dir;
+    if (this.flipping || target < 0 || target >= this.spreadCount()) return;
+    this.flipping = true;
+    audio.playSfx(SFX_PAGE, 0.6);
+
+    const pageW = 382;
+    const pageH = 434;
+    const cy = BOOK.y + 16 + pageH / 2;
+    const xLeft = BOOK.x + 402;  // borda interna da página esquerda
+    const xRight = BOOK.x + 418; // borda interna da página direita
+
+    // a folha nasce na página de onde sai
+    const flip = this.add
+      .rectangle(dir === 1 ? xRight : xLeft, cy, pageW, pageH, 0xe4d9bb)
+      .setOrigin(dir === 1 ? 0 : 1, 0.5)
+      .setStrokeStyle(1, 0x000000, 0.18);
+    this.diary.add(flip);
+
+    this.tweens.add({
+      targets: flip,
+      scaleX: 0,
+      duration: BOOK.flipMs,
+      ease: 'Sine.easeIn',
+      onComplete: () => {
+        // no meio da virada, troca o conteúdo e passa a folha para o outro lado
+        this.spread = target;
+        this.renderSpread();
+        flip
+          .setPosition(dir === 1 ? xLeft : xRight, cy)
+          .setOrigin(dir === 1 ? 1 : 0, 0.5);
+        this.tweens.add({
+          targets: flip,
+          scaleX: 1,
+          duration: BOOK.flipMs,
+          ease: 'Sine.easeOut',
+          onComplete: () => {
+            flip.destroy();
+            this.flipping = false;
+          },
+        });
+      },
+    });
+  }
+
+  private toggleDiary() {
+    if (gameState.modalOpen) return; // teclado aberto: não abre o diário
+    this.setTooltip(null); // evita tooltip preso ao abrir o diário
+    const show = !this.diary.visible;
+    if (show) {
+      this.inventory.setVisible(false); // um painel de cada vez
+      this.spread = this.spreadCount() - 1; // abre na última folha escrita
+      this.renderSpread();
+      audio.playSfx(SFX_PAGE, 0.7);
+    }
+    this.diary.setVisible(show);
+  }
+
+  // ---------- inventário (a bolsa da Helena) ----------
+
+  private createInventory() {
+    const bg = this.add
+      .rectangle(VIEW.w / 2, VIEW.h / 2, VIEW.w, VIEW.h, COLOR.bg, 0.94)
+      .setInteractive();
+    bg.on('pointerdown', () => this.toggleInventory());
+
+    // slots, ícones e detalhes: refeitos sempre que o inventário muda
+    this.invSlots = this.add.container(0, 0);
+
     const header = this.add.graphics();
     header.fillStyle(COLOR.bg, 1);
     header.fillRect(0, 0, VIEW.w, HEADER_H);
     header.lineStyle(1, COLOR.edge, 1);
     header.lineBetween(0, HEADER_H, VIEW.w, HEADER_H);
 
-    const title = addText(this, 100, 22, 'Diário de Helena', {
+    const title = addText(this, 100, 22, 'Bolsa de Helena', {
       fontFamily: FONT.story,
       fontSize: '26px',
       color: TEXT.accent,
@@ -279,94 +616,143 @@ export class UIScene extends Phaser.Scene {
       this,
       VIEW.w - 100,
       32,
-      'I ou clique para fechar  ·  role para ver mais',
+      `${KEY_INVENTORY} ou clique fora para fechar`,
       { fontFamily: FONT.ui, fontSize: '12px', color: TEXT.dim }
     ).setOrigin(1, 0);
 
-    this.diary = this.add.container(0, 0, [bg, this.diaryList, header, title, hint]);
-    this.diary.setVisible(false);
+    this.inventory = this.add.container(0, 0, [bg, this.invSlots, header, title, hint]);
+    this.inventory.setVisible(false);
   }
 
-  private buildDiary() {
-    this.diaryList.removeAll(true);
-
-    const left = 100;
-    const width = VIEW.w - 200;
-    let y = 98;
-
-    const heading = (label: string) => {
-      const t = addText(this, left, y, label.toUpperCase(), {
-        fontFamily: FONT.ui,
-        fontSize: '11px',
-        fontStyle: '600',
-        color: TEXT.dim,
-      });
-      this.diaryList.add(t);
-      y += 26;
+  private slotPos(n: number) {
+    return {
+      x: INV.left + (n % INV.cols) * (INV.slot + INV.gap),
+      y: INV.top + Math.floor(n / INV.cols) * (INV.slot + INV.gap),
     };
+  }
 
-    const entry = (title: string, body: string) => {
-      const a = addText(this, left, y, title, {
-        fontFamily: FONT.ui,
-        fontSize: '15px',
-        fontStyle: '600',
-        color: TEXT.text,
-      });
-      this.diaryList.add(a);
-      y += a.height + 4;
-
-      const b = addText(this, left, y, body, {
-        fontFamily: FONT.story,
-        fontSize: '15px',
-        color: TEXT.soft,
-        wordWrap: { width },
-        lineSpacing: 4,
-      });
-      this.diaryList.add(b);
-      y += b.height + 18;
-    };
+  private buildInventory() {
+    this.invSlots.removeAll(true);
 
     const items = gameState.getItems();
-    const clues = gameState.getClues();
+    if (this.selectedSlot >= items.length) this.selectedSlot = -1;
 
-    heading('Itens');
-    if (items.length) {
-      items.forEach((i) => entry(i.title, i.text));
-    } else {
-      const none = addText(this, left, y, 'Nenhum item ainda.', {
-        fontFamily: FONT.story,
-        fontSize: '15px',
-        fontStyle: 'italic',
-        color: TEXT.dim,
+    const gridW = INV.cols * INV.slot + (INV.cols - 1) * INV.gap;
+    const gridH = INV.rows * INV.slot + (INV.rows - 1) * INV.gap;
+
+    const frame = this.add.graphics();
+    this.invSlots.add(frame);
+
+    // slots
+    for (let n = 0; n < INV.cols * INV.rows; n++) {
+      const { x, y } = this.slotPos(n);
+      const item = items[n];
+
+      frame.fillStyle(0xffffff, item ? 0.07 : 0.03);
+      frame.fillRoundedRect(x, y, INV.slot, INV.slot, 12);
+      frame.lineStyle(1, COLOR.edge, 1);
+      frame.strokeRoundedRect(x, y, INV.slot, INV.slot, 12);
+
+      if (!item) continue;
+
+      const cx = x + INV.slot / 2;
+      const cy = y + INV.slot / 2;
+      const id = (item as unknown as { id?: string }).id ?? '';
+      const key = `item-${id}`;
+
+      if (id && this.textures.exists(key)) {
+        this.invSlots.add(this.add.image(cx, cy, key).setDisplaySize(56, 56));
+      } else {
+        // sem ícone: mostra a inicial do item
+        this.invSlots.add(
+          addText(this, cx, cy, item.title.charAt(0).toUpperCase(), {
+            fontFamily: FONT.story,
+            fontSize: '28px',
+            color: TEXT.soft,
+          }).setOrigin(0.5)
+        );
+      }
+
+      const zone = this.add
+        .zone(cx, cy, INV.slot, INV.slot)
+        .setInteractive({ useHandCursor: true });
+      zone.on('pointerdown', () => {
+        this.selectedSlot = n;
+        this.drawSelection();
       });
-      this.diaryList.add(none);
-      y += none.height + 18;
+      zone.on('pointerover', () => this.setTooltip(item.title));
+      zone.on('pointerout', () => this.setTooltip(null));
+      this.invSlots.add(zone);
     }
 
-    y += 8;
-    heading('Anotações');
-    clues.forEach((c) => entry(c.title, c.text));
+    // painel de detalhes, ao lado da grade
+    const dx = INV.left + gridW + 50;
+    const dw = VIEW.w - 100 - dx;
+    drawPanel(frame, dx, INV.top, dw, gridH, { radius: 14, alpha: 0.55, shadow: false });
 
-    this.diaryHeight = y;
+    this.invTitle = addText(this, dx + 22, INV.top + 20, '', {
+      fontFamily: FONT.story,
+      fontSize: '21px',
+      color: TEXT.accent,
+      wordWrap: { width: dw - 44 },
+    });
+    this.invBody = addText(this, dx + 22, INV.top + 62, '', {
+      fontFamily: FONT.story,
+      fontSize: '15px',
+      color: TEXT.soft,
+      wordWrap: { width: dw - 44 },
+      lineSpacing: 4,
+    });
+    this.invSel = this.add.graphics();
+    this.invSlots.add([this.invTitle, this.invBody, this.invSel]);
+
+    this.drawSelection();
   }
 
-  private scrollList(dy: number) {
-    const maxScroll = Math.max(0, this.diaryHeight - (VIEW.h - 24));
-    this.diaryList.y = Phaser.Math.Clamp(this.diaryList.y - dy * 0.6, -maxScroll, 0);
+  /** Destaca o slot escolhido e mostra o nome e a descrição do item. */
+  private drawSelection() {
+    const items = gameState.getItems();
+    const item = items[this.selectedSlot];
+
+    this.invSel.clear();
+
+    if (item) {
+      const { x, y } = this.slotPos(this.selectedSlot);
+      this.invSel.lineStyle(2, COLOR.accent, 1);
+      this.invSel.strokeRoundedRect(x, y, INV.slot, INV.slot, 12);
+      this.invTitle.setText(item.title);
+      this.invBody.setText(item.text);
+    } else {
+      this.invTitle.setText('');
+      this.invBody.setText(
+        items.length ? 'Selecione um item para ver os detalhes.' : 'A bolsa está vazia.'
+      );
+    }
   }
 
-  private togglePanel() {
-    if (gameState.modalOpen) return; // teclado aberto: não abre o diário
-    this.setTooltip(null); // evita tooltip preso ao abrir o diário
-    const show = !this.diary.visible;
-    if (show) this.diaryList.y = 0;
-    this.diary.setVisible(show);
+  private toggleInventory() {
+    if (gameState.modalOpen) return; // teclado aberto: não abre o inventário
+    this.setTooltip(null);
+    const show = !this.inventory.visible;
+    if (show) {
+      this.diary.setVisible(false); // um painel de cada vez
+      audio.playSfx(SFX_ZIP_OPEN, 0.8); // zíper da bolsa
+    }
+    this.inventory.setVisible(show);
   }
 
-  private refreshInventory() {
-    const total = gameState.getItems().length + gameState.getClues().length;
-    this.redrawCounter(total);
+  // ---------- atualização geral ----------
+
+  private refreshAll() {
+    const items = gameState.getItems().length;
+    const clues = gameState.getClues().length;
+
+    // Inventário na ponta direita, Diário logo à esquerda dele
+    const left = this.drawPill(this.invPill, `Inventário  ${items}`, VIEW.w - 64);
+    this.drawPill(this.diaryPill, `Diário  ${clues}`, left - 8);
+
     this.buildDiary();
+    this.buildInventory();
   }
 
   // ---------- tooltip ----------

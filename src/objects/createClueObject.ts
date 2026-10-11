@@ -12,6 +12,10 @@ export interface ClueObjectConfig {
   fontSize?: number;
   /** Chave da textura SVG carregada no preload. Se existir, substitui a cor do retângulo. */
   sprite?: string;
+  /** Tamanho da imagem, quando diferente da área clicável (w × h). */
+  spriteSize?: { w: number; h: number };
+  /** Deslocamento da imagem em relação ao centro da área clicável. */
+  spriteOffset?: { x: number; y: number };
   /** Texto do tooltip ao passar o mouse (ou função, se mudar conforme o estado). */
   hover?: string | (() => string);
   /** Mostra o nome fixo sobre o objeto. Útil só para depurar. */
@@ -28,7 +32,13 @@ export function createClueObject(scene: Phaser.Scene, cfg: ClueObjectConfig) {
 
   // A imagem fica por baixo; o retângulo vem por cima só como área clicável e borda.
   const image = cfg.sprite
-    ? scene.add.image(x, y, cfg.sprite).setDisplaySize(w, h)
+    ? scene.add
+        .image(
+          x + (cfg.spriteOffset?.x ?? 0),
+          y + (cfg.spriteOffset?.y ?? 0),
+          cfg.sprite
+        )
+        .setDisplaySize(cfg.spriteSize?.w ?? w, cfg.spriteSize?.h ?? h)
     : undefined;
 
   const rect = scene.add

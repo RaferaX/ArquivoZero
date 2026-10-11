@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="340" height="240" viewBox="0 0 340 240">
+  <defs>
+    <linearGradient id="qaWood" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#68472e"/>
+      <stop offset="0.5" stop-color="#422b1c"/>
+      <stop offset="1" stop-color="#24170f"/>
+    </linearGradient>
+    <linearGradient id="qaCork" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9a7550"/>
+      <stop offset="0.55" stop-color="#7d5d3d"/>
+      <stop offset="1" stop-color="#5f452c"/>
+    </linearGradient>
+    <linearGradient id="qaInner" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#000" stop-opacity="0.5"/>
+      <stop offset="0.12" stop-color="#000" stop-opacity="0"/>
+      <stop offset="0.88" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0.35"/>
+    </linearGradient>
+    <linearGradient id="qaPaper" x1="0" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#e0d1ad"/>
+      <stop offset="0.5" stop-color="#cdbb92"/>
+      <stop offset="1" stop-color="#ae9b72"/>
+    </linearGradient>
+    <linearGradient id="qaPaperLight" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ece3c8"/>
+      <stop offset="1" stop-color="#c7b88f"/>
+    </linearGradient>
+    <linearGradient id="qaPhoto" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4a5360"/>
+      <stop offset="1" stop-color="#232a33"/>
+    </linearGradient>
+    <radialGradient id="qaPinRed" cx="0.35" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#ff8c85"/>
+      <stop offset="0.45" stop-color="#b3262e"/>
+      <stop offset="1" stop-color="#5a1015"/>
+    </radialGradient>
+    <radialGradient id="qaPinAmber" cx="0.35" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#ffe8a8"/>
+      <stop offset="0.5" stop-color="#d9b25f"/>
+      <stop offset="1" stop-color="#6e5320"/>
+    </radialGradient>
+    <pattern id="qaSpeckle" width="46" height="46" patternUnits="userSpaceOnUse">
+      <circle cx="5" cy="8" r="1.1" fill="#c39a69" fill-opacity="0.45"/>
+      <circle cx="21" cy="4" r="0.8" fill="#3f2b18" fill-opacity="0.5"/>
+      <circle cx="37" cy="12" r="1.3" fill="#b78d5d" fill-opacity="0.4"/>
+      <circle cx="12" cy="23" r="0.9" fill="#3f2b18" fill-opacity="0.45"/>
+      <circle cx="30" cy="27" r="1.2" fill="#c39a69" fill-opacity="0.4"/>
+      <circle cx="42" cy="38" r="0.8" fill="#3f2b18" fill-opacity="0.5"/>
+      <circle cx="8" cy="40" r="1.2" fill="#b78d5d" fill-opacity="0.4"/>
+      <circle cx="24" cy="39" r="0.7" fill="#3f2b18" fill-opacity="0.45"/>
+    </pattern>
+    <filter id="qaShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <filter id="qaSoft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="1.6"/>
+    </filter>
+  </defs>
+
+  <!-- Sombra na parede -->
+  <rect x="12" y="9" width="322" height="226" rx="3"
+    fill="#000" fill-opacity="0.6" filter="url(#qaShadow)"/>
+
+  <!-- Moldura de madeira -->
+  <rect x="6" y="4" width="328" height="230" rx="3"
+    fill="url(#qaWood)" stroke="#1b120b" stroke-width="2.5"/>
+  <path d="M10 8H330M10 8V230"
+    fill="none" stroke="#a27a4e" stroke-opacity="0.45" stroke-width="1.4"/>
+  <path d="M330 9V230M11 231H329"
+    fill="none" stroke="#100a06" stroke-opacity="0.8" stroke-width="1.6"/>
+
+  <!-- Dobradiças quase invisíveis (o quadro gira) -->
+  <rect x="9" y="52" width="6" height="14" rx="1.5" fill="#17100a" fill-opacity="0.55"/>
+  <rect x="9" y="170" width="6" height="14" rx="1.5" fill="#17100a" fill-opacity="0.55"/>
+  <path d="M10 54V64M10 172V182" stroke="#a27a4e" stroke-opacity="0.35" stroke-width="0.8"/>
+
+  <!-- Cortiça -->
+  <rect x="20" y="18" width="300" height="202" fill="url(#qaCork)" stroke="#2a1b10" stroke-width="1.5"/>
+  <rect x="20" y="18" width="300" height="202" fill="url(#qaSpeckle)"/>
+  <rect x="20" y="18" width="300" height="202" fill="url(#qaInner)"/>
+
+  <!-- Espaço vazio: a foto que foi arrancada -->
+  <rect x="130" y="128" width="50" height="62"
+    fill="#b99466" fill-opacity="0.28" stroke="#c9a577" stroke-opacity="0.35"
+    stroke-width="0.8" stroke-dasharray="3 2"/>
+  <circle cx="136" cy="134" r="0.9" fill="#2a1b10"/>
+  <circle cx="174" cy="134" r="0.9" fill="#2a1b10"/>
+  <circle cx="136" cy="184" r="0.9" fill="#2a1b10"/>
+  <circle cx="174" cy="184" r="0.9" fill="#2a1b10"/>
+  <path d="M151 129L167 129L164 138L159 135L154 140Z"
+    fill="url(#qaPaperLight)" stroke="#806b49" stroke-width="0.5"/>
+
+  <!-- Recorte A: jornal -->
+  <g transform="rotate(-3 84 67)">
+    <rect x="36" y="33" width="100" height="74" fill="#000" fill-opacity="0.45" filter="url(#qaSoft)"/>
+    <rect x="34" y="30" width="100" height="74" fill="url(#qaPaper)" stroke="#806b49" stroke-width="0.8"/>
+    <text x="84" y="43" text-anchor="middle" font-family="Georgia, serif"
+      font-size="9.5" font-weight="bold" letter-spacing="0.8" fill="#2b1e13">VALE CINZENTO</text>
+    <path d="M40 47H128" stroke="#2b1e13" stroke-width="1.2"/>
+    <text x="84" y="55" text-anchor="middle" font-family="Georgia, serif"
+      font-size="5.2" font-style="italic" fill="#4a3826">Município passa a distrito</text>
+    <rect x="40" y="60" width="32" height="24" fill="#8f8167"/>
+    <path d="M40 84L52 72L60 79L66 74L72 80V84Z" fill="#5d5240"/>
+    <g stroke="#5b4a33" stroke-opacity="0.55" stroke-width="1.1">
+      <path d="M76 62H128M76 67H128M76 72H128M76 77H122M76 82H128"/>
+      <path d="M40 90H128M40 95H128M40 100H110"/>
+    </g>
+  </g>
+
+  <!-- Recorte B: mapa com a cidade riscada -->
+  <g transform="rotate(2.5 185 58)">
+    <rect x="150" y="31" width="74" height="60" fill="#000" fill-opacity="0.45" filter="url(#qaSoft)"/>
+    <rect x="148" y="28" width="74" height="60" fill="url(#qaPaperLight)" stroke="#806b49" stroke-width="0.8"/>
+    <text x="185" y="38" text-anchor="middle" font-family="Georgia, serif"
+      font-size="5.5" font-weight="bold" letter-spacing="1" fill="#2b1e13">MAPA RODOVIÁRIO</text>
+    <path d="M154 44H216M154 56H216M154 68H216M154 80H216M166 42V84M180 42V84M194 42V84M208 42V84"
+      stroke="#6d5539" stroke-opacity="0.3" stroke-width="0.5"/>
+    <path d="M154 74Q170 60 184 66T216 52" fill="none" stroke="#7a6444" stroke-opacity="0.8" stroke-width="1"/>
+    <circle cx="188" cy="62" r="9" fill="none" stroke="#a3262e" stroke-width="1.1" stroke-dasharray="2.2 1.6"/>
+    <path d="M183 57L193 67M193 57L183 67" stroke="#a3262e" stroke-width="1.3" stroke-linecap="round"/>
+  </g>
+
+  <!-- Recorte C: o texto riscado de preto -->
+  <g transform="rotate(-2 274 64)">
+    <rect x="238" y="35" width="76" height="64" fill="#000" fill-opacity="0.45" filter="url(#qaSoft)"/>
+    <rect x="236" y="32" width="76" height="64" fill="url(#qaPaperLight)" stroke="#806b49" stroke-width="0.8"/>
+    <text x="274" y="43" text-anchor="middle" font-family="Georgia, serif"
+      font-size="6.2" font-weight="bold" letter-spacing="1.2" fill="#2b1e13">INFORME</text>
+    <path d="M242 47H306" stroke="#2b1e13" stroke-width="0.9"/>
+    <g stroke="#5b4a33" stroke-opacity="0.55" stroke-width="1.1">
+      <path d="M242 53H306M242 58H300"/>
+    </g>
+    <text x="242" y="69" font-family="Georgia, serif" font-size="5.6" font-style="italic" fill="#2b1e13">desapareceram sem</text>
+    <text x="242" y="77" font-family="Georgia, serif" font-size="5.6" font-style="italic" fill="#2b1e13">deixar registro</text>
+    <path d="M240 66L309 65M240 69.5L309 69M240 73L309 72.5M240 76.5L300 76M240 80L300 79.5"
+      stroke="#0d0d0d" stroke-width="3.2" stroke-opacity="0.82" stroke-linecap="round"/>
+    <g stroke="#5b4a33" stroke-opacity="0.55" stroke-width="1.1">
+      <path d="M242 86H306M242 91H290"/>
+    </g>
+  </g>
+
+  <!-- Foto sem rosto -->
+  <g transform="rotate(-5 69 159)">
+    <rect x="42" y="127" width="58" height="70" fill="#000" fill-opacity="0.45" filter="url(#qaSoft)"/>
+    <rect x="40" y="124" width="58" height="70" fill="#e7e1d2" stroke="#9c9380" stroke-width="0.7"/>
+    <rect x="45" y="129" width="48" height="48" fill="url(#qaPhoto)"/>
+    <circle cx="69" cy="148" r="8.5" fill="#12161c"/>
+    <path d="M52 177C52 163 60 158 69 158C78 158 86 163 86 177Z" fill="#12161c"/>
+    <ellipse cx="69" cy="148" rx="9" ry="10" fill="#8a93a0" fill-opacity="0.35" filter="url(#qaSoft)"/>
+    <path d="M48 185H86" stroke="#6d6454" stroke-opacity="0.5" stroke-width="1"/>
+  </g>
+
+  <!-- Ficha com anotações -->
+  <g transform="rotate(3 258 145)">
+    <rect x="216" y="119" width="88" height="58" fill="#000" fill-opacity="0.45" filter="url(#qaSoft)"/>
+    <rect x="214" y="116" width="88" height="58" fill="url(#qaPaperLight)" stroke="#806b49" stroke-width="0.7"/>
+    <path d="M214 127H302" stroke="#8f5a52" stroke-opacity="0.55" stroke-width="0.7"/>
+    <path d="M216 137H300M216 147H300M216 157H300M216 167H300"
+      stroke="#7d92a8" stroke-opacity="0.35" stroke-width="0.6"/>
+    <g font-family="Georgia, serif" font-size="7" font-style="italic" fill="#26324a">
+      <text x="222" y="125.5">sem registro.</text>
+      <text x="222" y="145.5">ninguém lembra.</text>
+      <text x="222" y="165.5">quem assinou?</text>
+    </g>
+  </g>
+
+  <!-- Fios vermelhos: todos levam ao espaço vazio -->
+  <g fill="none" stroke-linecap="round">
+    <g stroke="#000" stroke-opacity="0.3" stroke-width="1.6" transform="translate(1 1.5)">
+      <path d="M84 33Q135 50 185 31"/>
+      <path d="M185 31Q232 52 274 35"/>
+      <path d="M84 33Q60 80 69 128"/>
+      <path d="M69 128Q110 150 158 132"/>
+      <path d="M258 119Q210 160 158 132"/>
+    </g>
+    <g stroke="#a3262e" stroke-width="1.1">
+      <path d="M84 33Q135 50 185 31"/>
+      <path d="M185 31Q232 52 274 35"/>
+      <path d="M84 33Q60 80 69 128"/>
+      <path d="M69 128Q110 150 158 132"/>
+      <path d="M258 119Q210 160 158 132"/>
+    </g>
+  </g>
+
+  <!-- Alfinetes -->
+  <g>
+    <ellipse cx="85" cy="36" rx="4" ry="2" fill="#000" fill-opacity="0.4"/>
+    <circle cx="84" cy="33" r="3.4" fill="url(#qaPinAmber)"/>
+    <ellipse cx="186" cy="34" rx="4" ry="2" fill="#000" fill-opacity="0.4"/>
+    <circle cx="185" cy="31" r="3.4" fill="url(#qaPinRed)"/>
+    <ellipse cx="275" cy="38" rx="4" ry="2" fill="#000" fill-opacity="0.4"/>
+    <circle cx="274" cy="35" r="3.4" fill="url(#qaPinAmber)"/>
+    <ellipse cx="70" cy="131" rx="4" ry="2" fill="#000" fill-opacity="0.4"/>
+    <circle cx="69" cy="128" r="3.4" fill="url(#qaPinAmber)"/>
+    <ellipse cx="159" cy="135" rx="4" ry="2" fill="#000" fill-opacity="0.4"/>
+    <circle cx="158" cy="132" r="3.4" fill="url(#qaPinRed)"/>
+    <ellipse cx="259" cy="122" rx="4" ry="2" fill="#000" fill-opacity="0.4"/>
+    <circle cx="258" cy="119" r="3.4" fill="url(#qaPinRed)"/>
+  </g>
+</svg>

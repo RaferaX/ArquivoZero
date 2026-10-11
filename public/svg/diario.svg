@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="480" viewBox="0 0 820 480">
+  <defs>
+    <linearGradient id="cover" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4c3120"/>
+      <stop offset="1" stop-color="#24150c"/>
+    </linearGradient>
+    <linearGradient id="pageL" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ebe1c6"/>
+      <stop offset="0.8" stop-color="#e3d8b8"/>
+      <stop offset="1" stop-color="#c2b18b"/>
+    </linearGradient>
+    <linearGradient id="pageR" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0" stop-color="#ebe1c6"/>
+      <stop offset="0.8" stop-color="#e3d8b8"/>
+      <stop offset="1" stop-color="#c2b18b"/>
+    </linearGradient>
+    <linearGradient id="gutter" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#2a1d0e" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="stack" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d8cba9"/>
+      <stop offset="1" stop-color="#9a8b68"/>
+    </linearGradient>
+    <linearGradient id="ribbon" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#b02b34"/>
+      <stop offset="1" stop-color="#6e1a20"/>
+    </linearGradient>
+    <filter id="soft" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+    <!-- textura de papel -->
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="11"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.35  0 0 0 0 0.27  0 0 0 0 0.16  0 0 0 0.16 0"/>
+    </filter>
+  </defs>
+
+  <!-- sombra projetada -->
+  <rect x="14" y="20" width="792" height="450" rx="16" fill="#000" fill-opacity="0.6" filter="url(#soft)"/>
+
+  <!-- capa de couro -->
+  <rect x="2" y="2" width="816" height="472" rx="14" fill="url(#cover)"/>
+  <rect x="2" y="2" width="816" height="472" rx="14" fill="none" stroke="#000" stroke-opacity="0.5" stroke-width="2"/>
+  <path d="M12 6.5H808" stroke="#fff" stroke-opacity="0.13" stroke-width="1.4" stroke-linecap="round"/>
+  <rect x="9" y="9" width="802" height="458" rx="10" fill="none" stroke="#c9a064" stroke-opacity="0.26" stroke-width="1" stroke-dasharray="5 4"/>
+
+  <!-- espessura das folhas -->
+  <rect x="20" y="448" width="382" height="14" fill="url(#stack)"/>
+  <rect x="418" y="448" width="382" height="14" fill="url(#stack)"/>
+  <path d="M22 452H400M22 456H400M22 459H400M420 452H798M420 456H798M420 459H798" stroke="#5a4b30" stroke-opacity="0.35" stroke-width="0.8"/>
+
+  <!-- páginas -->
+  <rect x="20" y="16" width="382" height="434" rx="3" fill="url(#pageL)"/>
+  <rect x="418" y="16" width="382" height="434" rx="3" fill="url(#pageR)"/>
+  <rect x="20" y="16" width="382" height="434" rx="3" filter="url(#grain)"/>
+  <rect x="418" y="16" width="382" height="434" rx="3" filter="url(#grain)"/>
+
+  <!-- manchas do tempo -->
+  <ellipse cx="704" cy="388" rx="24" ry="22" fill="none" stroke="#8a6a3a" stroke-opacity="0.12" stroke-width="3"/>
+  <ellipse cx="704" cy="388" rx="21" ry="19" fill="#8a6a3a" fill-opacity="0.04"/>
+  <ellipse cx="96" cy="60" rx="18" ry="9" fill="#8a6a3a" fill-opacity="0.07"/>
+
+  <!-- costura do meio -->
+  <rect x="402" y="16" width="16" height="434" fill="#8f7f5c"/>
+  <rect x="368" y="16" width="84" height="434" fill="url(#gutter)"/>
+  <path d="M410 18V448" stroke="#000" stroke-opacity="0.25" stroke-width="1"/>
+
+  <!-- brilho nas bordas de cima -->
+  <path d="M24 16.8H398M422 16.8H796" stroke="#fff" stroke-opacity="0.5" stroke-width="1" stroke-linecap="round"/>
+
+  <!-- ponta da fita marcadora -->
+  <path d="M428 460H442V478L435 472L428 478Z" fill="url(#ribbon)"/>
+  <path d="M428 460H442" stroke="#000" stroke-opacity="0.25"/>
+</svg>
